@@ -1,0 +1,160 @@
+<ion-header>
+  <ion-toolbar>
+      <ion-buttons slot="start">
+          <ion-menu-button id="custom"></ion-menu-button>
+        </ion-buttons>
+    <ion-title>Products</ion-title>
+    <ion-buttons slot="end" name="cart">
+        <ion-icon name="cart" size="large" ></ion-icon>
+      </ion-buttons>
+  </ion-toolbar>
+ 
+</ion-header>
+<ion-searchbar></ion-searchbar>
+<!-- <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+    <ion-infinite-scroll-content> -->
+        <ion-content>
+         
+<!-- item 1 -->
+<ion-item>
+    <ion-thumbnail slot="start"> 
+      <img src="../../assets/tomotoes.jpeg">
+    </ion-thumbnail>
+    <ion-label class="ion-text-wrap">Organic Tomotoes</ion-label>
+    <ion-grid>
+      <ion-row>
+        <ion-col><ion-button color="dark">-</ion-button></ion-col>
+        <ion-col id="numb"  offset="0.7" style = "margin-top: 9px;" ><span>0</span></ion-col>
+        <ion-col><ion-button color="dark">+</ion-button></ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-item>
+<!-- item 2 -->
+<ion-item>
+    <ion-thumbnail slot="start"> 
+      <img src="../../assets/beetroot.jpg">
+    </ion-thumbnail>
+    <ion-label class="ion-text-wrap">Organic Beetroot</ion-label>
+    <ion-grid>
+      <ion-row>
+        <ion-col><ion-button color="dark">-</ion-button></ion-col>
+        <ion-col id="numb"  offset="0.7" style = "margin-top: 9px;" ><span>0</span></ion-col>
+        <ion-col><ion-button color="dark">+</ion-button></ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-item>
+<!-- item 3 -->
+<ion-item>
+    <ion-thumbnail slot="start"> 
+      <img src="../../assets/carrot.jpg">
+    </ion-thumbnail>
+    <ion-label class="ion-text-wrap">Organic Carrot</ion-label>
+    <ion-grid>
+      <ion-row>
+        <ion-col><ion-button color="dark">-</ion-button></ion-col>
+        <ion-col id="numb"  offset="0.7" style = "margin-top: 9px;" ><span>0</span></ion-col>
+        <ion-col><ion-button color="dark">+</ion-button></ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-item>
+<!-- item 4 -->
+<ion-item>
+    <ion-thumbnail slot="start"> 
+      <img src="../../assets/corn.jpg">
+    </ion-thumbnail>
+    <ion-label class="ion-text-wrap">Organic Corn Cob</ion-label>
+    <ion-grid>
+      <ion-row>
+        <ion-col><ion-button color="dark">-</ion-button></ion-col>
+        <ion-col id="numb"  offset="0.7" style = "margin-top: 9px;" ><span>0</span></ion-col>
+        <ion-col><ion-button color="dark">+</ion-button></ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-item>
+  <!-- item 5 -->
+  <ion-item>
+      <ion-thumbnail slot="start"> 
+        <img src="../../assets/onions.jpg">
+      </ion-thumbnail>
+      <ion-label class="ion-text-wrap">Organic Onion</ion-label>
+      <ion-grid>
+        <ion-row>
+          <ion-col><ion-button color="dark">-</ion-button></ion-col>
+          <ion-col id="numb"  offset="0.7" style = "margin-top: 9px;" ><span>0</span></ion-col>
+          <ion-col><ion-button color="dark">+</ion-button></ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+    <!-- item 6 -->
+    <ion-item>
+        <ion-thumbnail slot="start"> 
+          <img src="../../assets/pototoes.jpg">
+        </ion-thumbnail>
+        <ion-label class="ion-text-wrap">Organic Potatoes</ion-label>
+        <ion-grid>
+          <ion-row>
+            <ion-col><ion-button color="dark">-</ion-button></ion-col>
+            <ion-col id="numb"  offset="0.7" style = "margin-top: 9px;" ><span>0</span></ion-col>
+            <ion-col><ion-button color="dark">+</ion-button></ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+      <!-- item 7 -->
+      <ion-item>
+          <ion-thumbnail slot="start"> 
+            <img src="../../assets/rajma.jpg">
+          </ion-thumbnail>
+          <ion-label class="ion-text-wrap">Organic Rajma</ion-label>
+          <ion-grid>
+            <ion-row>
+              <ion-col><ion-button color="dark">-</ion-button></ion-col>
+              <ion-col id="numb"  offset="0.7" style = "margin-top: 9px;" ><span>0</span></ion-col>
+              <ion-col><ion-button color="dark">+</ion-button></ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+        <!-- item 8 -->
+        <ion-item>
+            <ion-thumbnail slot="start"> 
+              <img src="../../assets/rice.jpg">
+            </ion-thumbnail>
+            <ion-label class="ion-text-wrap">Organic Rice</ion-label>
+            <ion-grid>
+              <ion-row>
+                <ion-col><ion-button color="dark">-</ion-button></ion-col>
+                <ion-col id="numb"  offset="0.7" style = "margin-top: 9px;" ><span>0</span></ion-col>
+                <ion-col><ion-button color="dark">+</ion-button></ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-item>
+          <!-- item 9 -->
+          <ion-item>
+              <ion-thumbnail slot="start"> 
+                <img src="../../assets/wheat.jpg">
+              </ion-thumbnail>
+              <ion-label class="ion-text-wrap">Organic Wheat</ion-label>
+              <ion-grid>
+                <ion-row>
+                  <ion-col><ion-button color="dark">-</ion-button></ion-col>
+                  <ion-col id="numb"  offset="0.7" style = "margin-top: 9px;" ><span>0</span></ion-col>
+                  <ion-col><ion-button color="dark">+</ion-button></ion-col>
+                </ion-row>
+              </ion-grid>
+            </ion-item>
+            <!-- item 10 -->
+            <ion-item>
+                <ion-thumbnail slot="start"> 
+                  <img src="../../assets/yellowdal.jpg">
+                </ion-thumbnail>
+                <ion-label class="ion-text-wrap">Organic Yellow Dal</ion-label>
+                <ion-grid>
+                  <ion-row>
+                    <ion-col><ion-button color="dark">-</ion-button></ion-col>
+                    <ion-col id="numb"  offset="0.7" style = "margin-top: 9px;" ><span>0</span></ion-col>
+                    <ion-col><ion-button color="dark">+</ion-button></ion-col>
+                  </ion-row>
+                </ion-grid>
+              </ion-item>
+          
+                
+</ion-content>
