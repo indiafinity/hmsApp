@@ -1,0 +1,106 @@
+<ion-header>
+    <ion-toolbar>
+          <!-- <ion-buttons slot="start" padding>
+            <ion-icon name="checkmark"></ion-icon>
+          </ion-buttons> -->
+      <ion-title>Edit Profile</ion-title>
+      <ion-buttons slot="end" padding>
+          <ion-icon name="close" size="default" (click)="cancel()"></ion-icon>
+        </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content padding>
+      <ion-list>
+        <ion-item> 
+          <ion-label> Name: </ion-label>
+          <ion-input type="text" placeholder="Your Name" [(ngModel)]="data.name"></ion-input>
+        </ion-item>
+        <ion-item> 
+            <ion-label> E-mail: </ion-label>
+            <ion-input type="email" placeholder="abc@gmail.com" [(ngModel)]="data.email"></ion-input>
+        </ion-item>
+        <ion-item> 
+            <ion-label> Phone No: </ion-label>
+            <ion-input type="tel" placeholder="Phone Number" [(ngModel)]="data.phone"></ion-input>
+        </ion-item>
+        <ion-item> 
+            <ion-label> Flat: </ion-label>
+            <ion-input type="text" placeholder="Flat no" [(ngModel)]="data.flat"></ion-input>
+        </ion-item>
+        <ion-item> 
+            <ion-label> Building: </ion-label>
+            <ion-input type="text" placeholder="Building Name" [(ngModel)]="data.building"></ion-input>
+        </ion-item>
+        <ion-item> 
+            <ion-label> Area: </ion-label>
+            <ion-input type="text" placeholder="Area" [(ngModel)]="data.area"></ion-input>
+        </ion-item>
+        <ion-item> 
+            <ion-label> City: </ion-label>
+            <ion-input type="text" placeholder="Name of your City" [(ngModel)]="data.city"></ion-input>
+        </ion-item>
+        <ion-item> 
+            <ion-label> State: </ion-label>
+            <ion-input type="text" placeholder="Name of your State" [(ngModel)]="data.state"></ion-input>
+        </ion-item>
+        <ion-item> 
+            <ion-label> Pin Code: </ion-label>
+            <ion-input type="text" placeholder="Area Pincode" [(ngModel)]="data.pincode"></ion-input>
+        </ion-item>
+        <!-- <ion-item> 
+            <ion-label> New Password </ion-label>
+            <ion-input type="password" placeholder=" Enter New Password" [(ngModel)]="data.pass"></ion-input>
+        </ion-item>
+        
+        <ion-item> 
+            <ion-label> Confirm Password </ion-label>
+            <ion-input type="password" placeholder=" Re-enter Password" [(ngModel)]="data.rpass"></ion-input>
+        </ion-item> -->
+        </ion-list>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+                <ion-button  expand="full" (click)="updateData()">Save</ion-button>
+            </ion-col>
+            <ion-col>
+                <ion-button expand="full" (click)="cancel()">Cancel</ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-content>
+  <!-- <ion-content padding>
+    <ion-list>
+      <ion-item> 
+        <ion-label> Name: </ion-label>
+        <ion-label> {{ UserInfo.name }}</ion-label>
+      </ion-item>
+      <ion-item> 
+          <ion-label> E-mail: </ion-label>
+          <ion-label> {{ UserInfo.email }} </ion-label>
+      </ion-item>
+      <ion-item> 
+          <ion-label> Phone No: </ion-label>
+          <ion-label> {{ UserInfo.phone }} </ion-label>
+      </ion-item>
+      <ion-item> 
+          <ion-label> Address: </ion-label>
+          <ion-label> {{ UserInfo.address }} </ion-label> -->
+      <!-- </ion-item> -->
+      <!-- <ion-item> 
+          <ion-label> Phone No: </ion-label>
+          <ion-input  {{ [(ngModel)]="UserInfo.phone"}}></ion-input>
+      </ion-item>
+      <ion-item> 
+          <ion-label> Address: </ion-label>
+          <ion-input  {{ [(ngModel)]="UserInfo.address"}}></ion-input>
+      </ion-item> -->
+      <!-- <ion-item>E-mail: <ion-input  {{ [(ngModel)]="email"}}></ion-input> </ion-item>
+      <ion-item>Gender: Female</ion-item>
+      <ion-item>Address: D1-53, Snehdhara Scociety, Vile Parle West</ion-item>
+      <ion-item>Phone Number: 227783239</ion-item>
+      <ion-item>Change Password</ion-item> -->
+    <!-- </ion-list>
+    <ion-button expand="full" color="danger" (click)="callUser()">User Details</ion-button>
+    <ion-button expand="full" color="primary" (click)="profile()">Edit Profile</ion-button>
+  </ion-content>
+   -->

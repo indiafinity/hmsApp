@@ -1,21 +1,24 @@
 <ion-app>
-  
-<ion-menu side="start" menuId="custom">
+<ion-menu side="start" class="menu_main">
     <ion-header>
       <ion-toolbar color="dark">
-        <ion-title>Hello Riya</ion-title>
+        <ion-title>Hello {{ username }}</ion-title>
       </ion-toolbar>
     </ion-header>
     <ion-content>
       <ion-list>
-        <ion-item >My Profile</ion-item>
+        <!-- <ion-item [routerLink]="['/','myprofile']">My Profile</ion-item>
+        <ion-item [routerLink]="['/']">Home</ion-item>
+        <ion-item [routerLink]="['/','product']">Smart Basket</ion-item> -->
+        <ion-item href="/myprofile">My Profile</ion-item>
         <ion-item href="/">Home</ion-item>
         <ion-item href="/product">Smart Basket</ion-item>
         <ion-item>My Orders</ion-item>
         <ion-item>Wallet</ion-item>
-        <ion-item>logout</ion-item>
+        <ion-item href='/login'>Logout</ion-item>
       </ion-list>
     </ion-content>
   </ion-menu>
+  
   <ion-router-outlet main></ion-router-outlet>
 </ion-app>

@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
       <ion-buttons slot="start">
-          <ion-menu-button id="custom"></ion-menu-button>
+          <ion-menu-button id="content"></ion-menu-button>
         </ion-buttons>
     <ion-title>My Profile</ion-title>
     <ion-buttons slot="end" name="cart">
@@ -10,13 +10,58 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-    <ion-list>
-    <ion-item>Name : Riya </ion-item>
-    <ion-item>E-mail: riya.harsh@gmail.com</ion-item>
+<ion-content padding>
+  <ion-list>
+    <ion-item> 
+      <ion-label class="ion-text-wrap"> Name: &nbsp; {{ UserInfo.name }} </ion-label>
+      <!-- <ion-label  class="ion-text-wrap"> {{ UserInfo.name }}</ion-label> -->
+    </ion-item>
+    <ion-item> 
+        <ion-label class="ion-text-wrap"> E-mail: &nbsp; {{ UserInfo.email }}</ion-label>
+        <!-- <ion-label  class="ion-text-wrap" > {{ UserInfo.email }} </ion-label> -->
+    </ion-item>
+    <ion-item> 
+        <ion-label class="ion-text-wrap"> Phone No: &nbsp; {{ UserInfo.phone }} </ion-label>
+        <!-- <ion-label  class="ion-text-wrap"> {{ UserInfo.phone }} </ion-label> -->
+    </ion-item>
+    <ion-item> 
+        <ion-label class="ion-text-wrap"> Flat: &nbsp; {{ UserInfo.flat }}</ion-label>
+        <!-- <ion-label  class="ion-text-wrap"> {{ UserInfo.flat }} </ion-label> -->
+    </ion-item>
+    <ion-item> 
+        <ion-label class="ion-text-wrap"> Building: &nbsp; {{ UserInfo.building }}</ion-label>
+        <!-- <ion-label  class="ion-text-wrap"> {{ UserInfo.building }} </ion-label> -->
+    </ion-item>
+    <ion-item> 
+        <ion-label class="ion-text-wrap"> Area: &nbsp; {{ UserInfo.area }}</ion-label>
+        <!-- <ion-label  class="ion-text-wrap"> {{ UserInfo.area }} </ion-label> -->
+    </ion-item>
+    <ion-item> 
+        <ion-label class="ion-text-wrap"> City: &nbsp; {{ UserInfo.city }} </ion-label>
+        <!-- <ion-label  class="ion-text-wrap"> {{ UserInfo.city }} </ion-label> -->
+    </ion-item>
+    <ion-item> 
+        <ion-label class="ion-text-wrap"> State: &nbsp; {{ UserInfo.state }}</ion-label>
+        <!-- <ion-label  class="ion-text-wrap"> {{ UserInfo.state }} </ion-label> -->
+    </ion-item>
+    <ion-item> 
+        <ion-label class="ion-text-wrap"> Pin Code: &nbsp; {{ UserInfo.pincode }}</ion-label>
+        <!-- <ion-label  class="ion-text-wrap"> {{ UserInfo.pincode }} </ion-label> -->
+    </ion-item>
+    <!-- <ion-item> 
+        <ion-label> Phone No: </ion-label>
+        <ion-input  {{ [(ngModel)]="UserInfo.phone"}}></ion-input>
+    </ion-item>
+    <ion-item> 
+        <ion-label> Address: </ion-label>
+        <ion-input  {{ [(ngModel)]="UserInfo.address"}}></ion-input>
+    </ion-item> -->
+    <!-- <ion-item>E-mail: <ion-input  {{ [(ngModel)]="email"}}></ion-input> </ion-item>
     <ion-item>Gender: Female</ion-item>
     <ion-item>Address: D1-53, Snehdhara Scociety, Vile Parle West</ion-item>
     <ion-item>Phone Number: 227783239</ion-item>
-    <ion-item>Change Password</ion-item>
+    <ion-item>Change Password</ion-item> -->
   </ion-list>
+  <!-- <ion-button expand="full" color="danger" (click)="callUser()">User Details</ion-button> -->
+  <ion-button expand="full" color="primary" (click)="profile()">Edit Profile</ion-button>
 </ion-content>

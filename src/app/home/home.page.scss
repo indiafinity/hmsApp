@@ -1,10 +1,53 @@
 ion-slides{
-margin-top: 30%;
+margin-top: 5%;
 background: transparent;
+margin-bottom: -20px;
 
-img{
-    padding-top: 20px;
-    padding-bottom: 20px;
+ion-card {
+    img {
+        margin: 10px auto;
+        height: 25vh !important;
+        width: auto !important;
+        max-width: 85%;
+        align-items: center;
+    }
+
+    // ion-card-content {
+    //     padding: 0 !important;
+
+    //     ion-card-title {        
+    //         padding-top: 1.5rem !important;
+    //         padding-bottom: 1.5rem !important;
+    //     }
+    // }
 }
 
+}
+
+ion-content.bg-img{
+    --background: url(../../assets/bg12.jpg) 0 0/100% 100% no-repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+}
+
+ion-toolbar.font-home{
+    color: blanchedalmond;
+}
+ion-title.text-align{
+    text-align: center;
+}
+.but{
+    --color: blanchedalmond;
+    --background: #ff7101;
+    margin-left: 30%;
+    margin-top: 7.5%;
+}
+ion-row.text-main{
+    margin-top: -10px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font: bold;
+    color: white;
+    font-size: 45px;
+    text-align: center;
 }

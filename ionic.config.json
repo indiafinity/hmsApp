@@ -1,5 +1,7 @@
 {
   "name": "hmsApp",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

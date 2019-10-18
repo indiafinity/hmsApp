@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title color="danger">Login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content> 
+
+    <div class="logo"> 
+        <img src="../../assets/login.png">
+    </div>
+
+    <ion-grid>
+      <ion-row class="rowstyle">
+        <ion-icon name="mail"></ion-icon>
+        <ion-input type="email" placeholder="Email Address" [(ngModel)]="UserInfo.email"></ion-input>
+      </ion-row>
+      <ion-row class="rowstyle">
+        <ion-icon name="key"></ion-icon>
+          <ion-input type="password" placeholder="Password" [(ngModel)]="UserInfo.password"></ion-input>
+      </ion-row>
+      <ion-row>
+        <ion-button expand="block" fill="outline"  color="dark" style="margin-left: 120px;" (click)="login()">Login</ion-button>
+      </ion-row>
+    </ion-grid>
+  
+    <ion-button expand="block" fill="clear" (click)="gotosignup()">
+      Don't have an account? Sign Up</ion-button>
+</ion-content>

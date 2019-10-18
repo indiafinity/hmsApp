@@ -1,24 +1,45 @@
-<ion-header>
-  <ion-toolbar>
+<!-- <ion-header>
+</ion-header> -->
+
+<ion-content  class="ion-padding bg-img">
+  <ion-toolbar no-border color="transparent" class="font-home">
     <ion-buttons slot="start">
-      <ion-menu-button id="custom"></ion-menu-button>
+      <ion-menu-button id="content" ></ion-menu-button>
     </ion-buttons>
     <ion-buttons slot="end" name="cart">
       <ion-icon name="cart" size="large" ></ion-icon>
     </ion-buttons>
-    <ion-title>
-      HMS app
-    </ion-title>
+    <ion-title class="text-align">CEC LLP</ion-title>
   </ion-toolbar>
-</ion-header>
-
-<ion-content >
+  <ion-grid >
+    <ion-row class="text-main">
+      <ion-label>Eating Organic</ion-label>
+    </ion-row>
+    <ion-row class="text-main">
+      <ion-label> Isn't A Trend.</ion-label>
+    </ion-row>
+    <ion-row class="text-main ion-padding-top">
+      <ion-label>It's A Return</ion-label>
+    </ion-row>
+    <ion-row class="text-main">
+      <ion-label>To Tradation</ion-label>
+    </ion-row>
+  </ion-grid>
+  <ion-button fill="solid" class="but" (click)="orderNow()">Order Now</ion-button>
   <ion-slides [options]="sliderOpts">
-    <ion-slide *ngFor="let img of abc">
-        <img src="../../assets/{{ img }}" tappable (click)="openPreview(img)" >
+    <ion-slide *ngFor="let img of abcd">
+        <!-- <img src ="../../assets/{{ img }}" tappable (click)="openPreview(img)" > -->
+        <ion-card color="light">
+            <ion-card-header>
+              <ion-card-subtitle>{{ img.subtitle }}</ion-card-subtitle>
+              <ion-card-title>{{ img.title }}</ion-card-title>
+            </ion-card-header>
+          
+            <ion-card-content>
+              <img src="../../assets/{{ img.image }}" tappable class="image">
+            </ion-card-content>
+          </ion-card>
     </ion-slide>
 
   </ion-slides>
-
-
 </ion-content>

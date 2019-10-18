@@ -9,6 +9,9 @@ const routes: Routes = [
   { path: 'myprofile', loadChildren: './myprofile/myprofile.module#MyprofilePageModule' },
   { path: 'product', loadChildren: './product/product.module#ProductPageModule' },
   { path: 'image-modal', loadChildren: './image-modal/image-modal.module#ImageModalPageModule' },
+  { path: 'login', loadChildren: './login/login.module#LoginPageModule' },
+  { path: 'signup', loadChildren: './signup/signup.module#SignupPageModule' },
+  { path: 'edit-profile', loadChildren: './edit-profile/edit-profile.module#EditProfilePageModule' },
 ];
 
 @NgModule({
