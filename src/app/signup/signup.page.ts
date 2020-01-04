@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController, ToastController, AlertController } from '@ionic/angular';
-import * as firebase from 'firebase';
+import * as firebase from 'firebase/app';
+import 'firebase/firestore';
+import 'firebase/auth';
+
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.page.html',
@@ -48,7 +51,7 @@ signup() {
               handler: () => {
                 console.log('Login function displayed..');
                 // navigate to feeds page
-                this.navCtrl.navigateRoot('/home');
+                this.navCtrl.navigateRoot('/home1');
               }
             }
           ]

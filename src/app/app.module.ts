@@ -12,17 +12,19 @@ import { ImageModalPageModule } from './image-modal/image-modal.module';
 import { IonicStorageModule } from '@ionic/storage';
 
 // import { firebase } from 'firebase';
-import * as firebase from 'firebase';
+import * as firebase from 'firebase/app';
+
+import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyBpDd9DwV7p-Q18UEGjS90APDMznXPMYnY',
-    authDomain: 'hmsapp-cosmo.firebaseapp.com',
-    databaseURL: 'https://hmsapp-cosmo.firebaseio.com',
-    projectId: 'hmsapp-cosmo',
-    storageBucket: 'hmsapp-cosmo.appspot.com',
-    messagingSenderId: '251424807517',
-    appId: '1:251424807517:web:b3393d1f39779e8096cbb4',
-    measurementId: 'G-G9FRRVVS0D'
+  apiKey: 'AIzaSyCJCweI34qs89iMubJO1rFh47lZaqY-lPw',
+  authDomain: 'cosmo-ecosystem-care.firebaseapp.com',
+  databaseURL: 'https://cosmo-ecosystem-care.firebaseio.com',
+  projectId: 'cosmo-ecosystem-care',
+  storageBucket: 'cosmo-ecosystem-care.appspot.com',
+  messagingSenderId: '714057783914',
+  appId: '1:714057783914:web:834463bf2c1b6ae44c4813',
+  measurementId: 'G-B61CMJE71Q'
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
@@ -41,6 +43,7 @@ firebase.initializeApp(firebaseConfig);
   providers: [
     StatusBar,
     SplashScreen,
+    BarcodeScanner,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

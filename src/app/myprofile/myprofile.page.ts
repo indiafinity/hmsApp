@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import * as firebase from 'firebase';
+import * as firebase from 'firebase/app';
+import 'firebase/firestore';
 import { Storage } from '@ionic/storage';
 import { Router, NavigationExtras } from '@angular/router';
 

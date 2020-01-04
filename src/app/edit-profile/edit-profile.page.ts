@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NavController, ToastController, AlertController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
-import * as firebase from 'firebase';
+import * as firebase from 'firebase/app';
+import 'firebase/firestore';
 
 @Component({
   selector: 'app-edit-profile',

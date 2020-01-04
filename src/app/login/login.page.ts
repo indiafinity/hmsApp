@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController, ToastController } from '@ionic/angular';
 // import { SignupPage } from '../signup/signup.page';
-import * as firebase from 'firebase';
+import * as firebase from 'firebase/app';
+import 'firebase/auth';
+import 'firebase/firestore';
 import { Storage } from '@ionic/storage';
 
 @Component({
@@ -25,7 +27,7 @@ export class LoginPage implements OnInit {
       })).present();
       this.storage.set('username', user.user.displayName);
       this.getUser(user.user.uid);
-      this.navCtrl.navigateRoot('/home');
+      this.navCtrl.navigateRoot('/home1');
     }).catch(async (err) => {
       console.log(err);
       (await this.toastctrl.create({
