@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Storage } from '@ionic/storage';
 
-import { Platform } from '@ionic/angular';
+import { Platform, NavController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 
@@ -16,19 +16,26 @@ export class AppComponent {
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
-    private storage: Storage
+    private storage: Storage,
+    private navCtrl: NavController
   ) {
+    this.storage.set('username', null);
     this.initializeApp();
-    this.storage.get('username').then(async (val) => {
-      this.username = val;
-      console.log(val);
-    });
   }
 
   initializeApp() {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+    });
+
+    this.storage.get('username').then(async (val) => {
+      if (val === null) {
+        this.navCtrl.navigateRoot('/login'); // forces user to login
+      } else {
+        this.username = val;
+        console.log('User: ' + val);
+      }
     });
 
   }

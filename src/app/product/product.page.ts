@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import * as firebase from 'firebase/app';
+import 'firebase/firestore';
 
 @Component({
   selector: 'app-product',
@@ -7,10 +9,43 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductPage implements OnInit {
 
-  // searchQuery: string = '';
-  // items: string[];
-  // constructor() {  }
+  cproducts = [{
+    uid: '',
+    name: '',
+    image: '',
+    available: '',
+    qty: 0,
+  }];
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.cproducts = [];
+
+    firebase.firestore().collection('cproducts').get().then((querySnapshot) => {
+      querySnapshot.forEach((prods) => {
+        this.cproducts.push({
+          uid: prods.id,
+          name: prods.data().name,
+          image: prods.data().image,
+          available: prods.data().total,
+          qty:  0,
+        });
+      });
+    });
+  }
+
+  onPlus(id: any) {
+    let val;
+    for (const i in this.cproducts) {
+      if (this.cproducts[i].uid === id) {
+        this.cproducts[i].qty = this.cproducts[i].qty + 1;
+        val = i;
+      }
+    }
+    console.log(this.cproducts[val].qty);
+  }
+
+  onMinus() {
+
+  }
 
 }

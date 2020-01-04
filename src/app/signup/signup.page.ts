@@ -3,6 +3,7 @@ import { NavController, ToastController, AlertController } from '@ionic/angular'
 import * as firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-signup',
@@ -20,8 +21,11 @@ export class SignupPage implements OnInit {
     email: ''
   };
 
-  constructor(public navCtrl: NavController,
-              public toastctrl: ToastController, public alertctrl: AlertController) { }
+  constructor(
+    public navCtrl: NavController,
+    public toastctrl: ToastController,
+    public alertctrl: AlertController,
+    public storage: Storage) { }
 
 signup() {
   // console.log(this.name, this.email, this.password);
@@ -50,6 +54,7 @@ signup() {
               role: 'submit',
               handler: () => {
                 console.log('Login function displayed..');
+                this.storage.set('username', this.name);
                 // navigate to feeds page
                 this.navCtrl.navigateRoot('/home1');
               }

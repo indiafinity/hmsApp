@@ -13,9 +13,24 @@
 <ion-searchbar></ion-searchbar>
 <!-- <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
     <ion-infinite-scroll-content> -->
-        <ion-content>
+<ion-content>
+  <div *ngFor="let prod of cproducts">
+    <ion-item>
+      <ion-thumbnail slot="start">
+        <img src="{{prod.image}}">
+      </ion-thumbnail>
+      <ion-label class="ion-text-wrap">{{ prod.name }}</ion-label>
+      <ion-grid>
+        <ion-row>
+          <ion-col><ion-button color="dark">-</ion-button></ion-col>
+          <ion-col id="numb" offset="0.7" style="margin-top: 9px;">{{prod.qty}}</ion-col>
+          <ion-col><ion-button color="dark" ng-click="onPlus(prod.uid)">+</ion-button></ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+  </div>
          
-<!-- item 1 -->
+<!-- item 1
 <ion-item>
     <ion-thumbnail slot="start"> 
       <img src="../../assets/tomotoes.jpeg">
@@ -29,7 +44,7 @@
       </ion-row>
     </ion-grid>
   </ion-item>
-<!-- item 2 -->
+ item 2 
 <ion-item>
     <ion-thumbnail slot="start"> 
       <img src="../../assets/beetroot.jpg">
@@ -43,7 +58,7 @@
       </ion-row>
     </ion-grid>
   </ion-item>
-<!-- item 3 -->
+ item 3 
 <ion-item>
     <ion-thumbnail slot="start"> 
       <img src="../../assets/carrot.jpg">
@@ -57,7 +72,7 @@
       </ion-row>
     </ion-grid>
   </ion-item>
-<!-- item 4 -->
+item 4 
 <ion-item>
     <ion-thumbnail slot="start"> 
       <img src="../../assets/corn.jpg">
@@ -71,7 +86,7 @@
       </ion-row>
     </ion-grid>
   </ion-item>
-  <!-- item 5 -->
+item 5
   <ion-item>
       <ion-thumbnail slot="start"> 
         <img src="../../assets/onions.jpg">
@@ -85,7 +100,7 @@
         </ion-row>
       </ion-grid>
     </ion-item>
-    <!-- item 6 -->
+    item 6 
     <ion-item>
         <ion-thumbnail slot="start"> 
           <img src="../../assets/pototoes.jpg">
@@ -99,7 +114,7 @@
           </ion-row>
         </ion-grid>
       </ion-item>
-      <!-- item 7 -->
+      item 7 
       <ion-item>
           <ion-thumbnail slot="start"> 
             <img src="../../assets/rajma.jpg">
@@ -113,7 +128,7 @@
             </ion-row>
           </ion-grid>
         </ion-item>
-        <!-- item 8 -->
+        item 8 
         <ion-item>
             <ion-thumbnail slot="start"> 
               <img src="../../assets/rice.jpg">
@@ -127,7 +142,7 @@
               </ion-row>
             </ion-grid>
           </ion-item>
-          <!-- item 9 -->
+          item 9
           <ion-item>
               <ion-thumbnail slot="start"> 
                 <img src="../../assets/wheat.jpg">
@@ -141,7 +156,7 @@
                 </ion-row>
               </ion-grid>
             </ion-item>
-            <!-- item 10 -->
+             item 10 
             <ion-item>
                 <ion-thumbnail slot="start"> 
                   <img src="../../assets/yellowdal.jpg">
@@ -155,6 +170,6 @@
                   </ion-row>
                 </ion-grid>
               </ion-item>
-          
+           -->
                 
 </ion-content>

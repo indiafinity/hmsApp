@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home1',
@@ -10,7 +11,7 @@ export class Home1Page implements OnInit {
   encodeData: any;
   scannedData: {};
 
-  constructor(private barcodeScanner: BarcodeScanner) {
+  constructor(private barcodeScanner: BarcodeScanner, private router: Router ) {
     this.encodeData = 'https://www.FreakyJolly.com';
   }
 
@@ -18,9 +19,9 @@ export class Home1Page implements OnInit {
   }
 
   onBarcode() {
-    this.barcodeScanner.encode(this.barcodeScanner.Encode.TEXT_TYPE, 'farmer-new-data').then((encodeData) => {
-      console.log(encodeData);
-    });
+    // this.barcodeScanner.encode(this.barcodeScanner.Encode.TEXT_TYPE, 'farmer-new-data').then((encodeData) => {
+    //   console.log(encodeData);
+    // });
     // this.barcodeScanner.scan().then((barData) => {
     //   this.scannedData = JSON.stringify(barData);
     //   console.log(barData);
@@ -29,6 +30,10 @@ export class Home1Page implements OnInit {
     // }).catch((error) => {
     //   console.log(error);
     // });
+  }
+
+  productspage() {
+    this.router.navigateByUrl('/product');
   }
 
 }

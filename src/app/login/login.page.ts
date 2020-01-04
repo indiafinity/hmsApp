@@ -28,6 +28,7 @@ export class LoginPage implements OnInit {
       this.storage.set('username', user.user.displayName);
       this.getUser(user.user.uid);
       this.navCtrl.navigateRoot('/home1');
+      // this.window.
     }).catch(async (err) => {
       console.log(err);
       (await this.toastctrl.create({
@@ -36,6 +37,13 @@ export class LoginPage implements OnInit {
     });
   }
   ngOnInit() {
+  }
+  ionViewWillEnter() {
+    this.storage.set('username', null);
+    // location.reload();
+  }
+  ionViewDidLeave() {
+    location.reload();
   }
   gotosignup() {
     this.navCtrl.navigateForward('/signup');
