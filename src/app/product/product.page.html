@@ -10,9 +10,8 @@
   </ion-toolbar>
  
 </ion-header>
-<ion-searchbar></ion-searchbar>
-<!-- <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
-    <ion-infinite-scroll-content> -->
+<ion-searchbar showcancelbutton='' (input)="filterList($event)"></ion-searchbar>
+
 <ion-content>
   <div *ngFor="let prod of cproducts">
     <ion-item>

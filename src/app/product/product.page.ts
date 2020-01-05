@@ -8,7 +8,7 @@ import 'firebase/firestore';
   styleUrls: ['./product.page.scss'],
 })
 export class ProductPage implements OnInit {
-
+  loadedcProducts = [];
   cproducts = [{
     uid: '',
     name: '',
@@ -30,7 +30,32 @@ export class ProductPage implements OnInit {
           qty:  0,
         });
       });
+      this.initializeList();
     });
+  }
+
+  filterList(evt) {
+    this.initializeList();
+    console.log(this.loadedcProducts);
+    // console.log(evt);
+    const searchTerm = evt.srcElement.value;
+
+    if (!searchTerm) {
+      return this.initializeList();
+    }
+
+    this.cproducts = this.loadedcProducts.filter((product) => {
+      if (product.name && searchTerm) {
+        if (product.name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1) {
+          return true;
+        }
+        return false;
+      }
+    });
+  }
+
+  initializeList() {
+    this.loadedcProducts = this.cproducts;
   }
 
   onPlus(id: any) {

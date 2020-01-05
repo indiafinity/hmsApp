@@ -83,6 +83,9 @@ signup() {
   gotologin() {
   this.navCtrl.navigateBack('/login');
  }
+ ionViewWillEnter() {
+   this.storage.set('username', null);
+ }
 
  register() {
    firebase.firestore().collection('users').add({

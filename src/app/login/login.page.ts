@@ -43,7 +43,7 @@ export class LoginPage implements OnInit {
     // location.reload();
   }
   ionViewDidLeave() {
-    location.reload();
+    // location.reload();
   }
   gotosignup() {
     this.navCtrl.navigateForward('/signup');

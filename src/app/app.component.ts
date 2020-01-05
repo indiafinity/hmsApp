@@ -19,7 +19,7 @@ export class AppComponent {
     private storage: Storage,
     private navCtrl: NavController
   ) {
-    this.storage.set('username', null);
+    // this.storage.set('username', null);
     this.initializeApp();
   }
 
@@ -31,7 +31,7 @@ export class AppComponent {
 
     this.storage.get('username').then(async (val) => {
       if (val === null) {
-        this.navCtrl.navigateRoot('/login'); // forces user to login
+        // this.navCtrl.navigateRoot('/login'); // forces user to login
       } else {
         this.username = val;
         console.log('User: ' + val);
