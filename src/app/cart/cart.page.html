@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button id="content"></ion-menu-button>
+    </ion-buttons>
+    <ion-buttons slot="end" (click)="onEditBtn()" class="end-icon-btn ion-padding-end">
+      <ion-icon name="create" id="editBtn"></ion-icon>
+    </ion-buttons>
+    <ion-title>My Cart</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+</ion-content>
+
+<ion-footer style="padding: 5px;">
+  <ion-button expand="full" color="danger">
+    Pay Now
+    <ion-icon name="card" slot="start"></ion-icon>
+  </ion-button>
+</ion-footer>

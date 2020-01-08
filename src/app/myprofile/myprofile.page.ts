@@ -71,4 +71,8 @@ export class MyprofilePage implements OnInit {
     });
   }
 
+  cartBtn() {
+    this.router.navigateByUrl('/cart');
+  }
+
 }

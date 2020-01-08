@@ -4,8 +4,8 @@
       <ion-menu-button id="content"></ion-menu-button>
     </ion-buttons>
     <ion-title>Home</ion-title>
-    <ion-buttons slot="end" name="cart">
-      <ion-icon name="cart" size="large" ></ion-icon>
+    <ion-buttons slot="end" (click)="cartBtn()">
+      <ion-icon name="cart" class="end-icon-btn ion-padding-end"></ion-icon>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>

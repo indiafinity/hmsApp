@@ -36,4 +36,8 @@ export class Home1Page implements OnInit {
     this.router.navigateByUrl('/product');
   }
 
+  cartBtn() {
+    this.router.navigateByUrl('/cart');
+  }
+
 }

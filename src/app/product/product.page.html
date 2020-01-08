@@ -1,174 +1,47 @@
 <ion-header>
   <ion-toolbar>
       <ion-buttons slot="start">
-          <ion-menu-button id="content"></ion-menu-button>
-        </ion-buttons>
-    <ion-title>Products</ion-title>
-    <ion-buttons slot="end" name="cart">
-        <ion-icon name="cart" size="large" ></ion-icon>
+        <ion-menu-button id="content"></ion-menu-button>
       </ion-buttons>
+    <ion-title>Products</ion-title>
+    <ion-buttons slot="end" (click)="cartBtn()">
+      <ion-icon name="cart" class="end-icon-btn ion-padding-end"></ion-icon>
+    </ion-buttons>
   </ion-toolbar>
- 
 </ion-header>
-<ion-searchbar showcancelbutton='' (input)="filterList($event)"></ion-searchbar>
+<ion-searchbar showcancelbutton='focus'></ion-searchbar>
 
-<ion-content>
-  <div *ngFor="let prod of cproducts">
-    <ion-item>
-      <ion-thumbnail slot="start">
-        <img src="{{prod.image}}">
-      </ion-thumbnail>
-      <ion-label class="ion-text-wrap">{{ prod.name }}</ion-label>
-      <ion-grid>
-        <ion-row>
-          <ion-col><ion-button color="dark">-</ion-button></ion-col>
-          <ion-col id="numb" offset="0.7" style="margin-top: 9px;">{{prod.qty}}</ion-col>
-          <ion-col><ion-button color="dark" ng-click="onPlus(prod.uid)">+</ion-button></ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-item>
+<ion-content class="ion-padding-bottom">
+  <div *ngIf="cproducts.length == 0">
+    <ion-label ><h5 class="text-muted">No Products to Show</h5></ion-label>
   </div>
-         
-<!-- item 1
-<ion-item>
-    <ion-thumbnail slot="start"> 
-      <img src="../../assets/tomotoes.jpeg">
-    </ion-thumbnail>
-    <ion-label class="ion-text-wrap">Organic Tomotoes</ion-label>
-    <ion-grid>
-      <ion-row>
-        <ion-col><ion-button color="dark">-</ion-button></ion-col>
-        <ion-col id="numb"  offset="0.7" style = "margin-top: 9px;" ><span>0</span></ion-col>
-        <ion-col><ion-button color="dark">+</ion-button></ion-col>
-      </ion-row>
-    </ion-grid>
-  </ion-item>
- item 2 
-<ion-item>
-    <ion-thumbnail slot="start"> 
-      <img src="../../assets/beetroot.jpg">
-    </ion-thumbnail>
-    <ion-label class="ion-text-wrap">Organic Beetroot</ion-label>
-    <ion-grid>
-      <ion-row>
-        <ion-col><ion-button color="dark">-</ion-button></ion-col>
-        <ion-col id="numb"  offset="0.7" style = "margin-top: 9px;" ><span>0</span></ion-col>
-        <ion-col><ion-button color="dark">+</ion-button></ion-col>
-      </ion-row>
-    </ion-grid>
-  </ion-item>
- item 3 
-<ion-item>
-    <ion-thumbnail slot="start"> 
-      <img src="../../assets/carrot.jpg">
-    </ion-thumbnail>
-    <ion-label class="ion-text-wrap">Organic Carrot</ion-label>
-    <ion-grid>
-      <ion-row>
-        <ion-col><ion-button color="dark">-</ion-button></ion-col>
-        <ion-col id="numb"  offset="0.7" style = "margin-top: 9px;" ><span>0</span></ion-col>
-        <ion-col><ion-button color="dark">+</ion-button></ion-col>
-      </ion-row>
-    </ion-grid>
-  </ion-item>
-item 4 
-<ion-item>
-    <ion-thumbnail slot="start"> 
-      <img src="../../assets/corn.jpg">
-    </ion-thumbnail>
-    <ion-label class="ion-text-wrap">Organic Corn Cob</ion-label>
-    <ion-grid>
-      <ion-row>
-        <ion-col><ion-button color="dark">-</ion-button></ion-col>
-        <ion-col id="numb"  offset="0.7" style = "margin-top: 9px;" ><span>0</span></ion-col>
-        <ion-col><ion-button color="dark">+</ion-button></ion-col>
-      </ion-row>
-    </ion-grid>
-  </ion-item>
-item 5
-  <ion-item>
-      <ion-thumbnail slot="start"> 
-        <img src="../../assets/onions.jpg">
-      </ion-thumbnail>
-      <ion-label class="ion-text-wrap">Organic Onion</ion-label>
-      <ion-grid>
-        <ion-row>
-          <ion-col><ion-button color="dark">-</ion-button></ion-col>
-          <ion-col id="numb"  offset="0.7" style = "margin-top: 9px;" ><span>0</span></ion-col>
-          <ion-col><ion-button color="dark">+</ion-button></ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-item>
-    item 6 
-    <ion-item>
-        <ion-thumbnail slot="start"> 
-          <img src="../../assets/pototoes.jpg">
+  <div *ngIf="cproducts.length > 1" class="padding-bottom">
+  <ion-label ><h5 class="text-muted">Total {{cproducts.length}} products</h5></ion-label>
+    <ion-list *ngFor="let prod of cproducts" class="prodList">
+      <ion-item>
+        <ion-thumbnail slot="start">
+          <img src="{{prod.image}}">
         </ion-thumbnail>
-        <ion-label class="ion-text-wrap">Organic Potatoes</ion-label>
+        <ion-label class="ion-text-wrap">{{ prod.name }}</ion-label>
         <ion-grid>
           <ion-row>
-            <ion-col><ion-button color="dark">-</ion-button></ion-col>
-            <ion-col id="numb"  offset="0.7" style = "margin-top: 9px;" ><span>0</span></ion-col>
-            <ion-col><ion-button color="dark">+</ion-button></ion-col>
+          <ion-col>
+            <ion-button id="minusBtn" color="dark" (click)="onMinus(prod.uid)">{{minus}}</ion-button>
+          </ion-col>
+          <ion-col id="qtyShow" offset="0.5" style="margin-top: 9px;">{{prod.qty}}</ion-col>
+          <ion-col>
+            <ion-button id="plusBtn" color="dark" (click)="onPlus(prod.uid)">{{plus}}</ion-button>
+          </ion-col>
           </ion-row>
         </ion-grid>
       </ion-item>
-      item 7 
-      <ion-item>
-          <ion-thumbnail slot="start"> 
-            <img src="../../assets/rajma.jpg">
-          </ion-thumbnail>
-          <ion-label class="ion-text-wrap">Organic Rajma</ion-label>
-          <ion-grid>
-            <ion-row>
-              <ion-col><ion-button color="dark">-</ion-button></ion-col>
-              <ion-col id="numb"  offset="0.7" style = "margin-top: 9px;" ><span>0</span></ion-col>
-              <ion-col><ion-button color="dark">+</ion-button></ion-col>
-            </ion-row>
-          </ion-grid>
-        </ion-item>
-        item 8 
-        <ion-item>
-            <ion-thumbnail slot="start"> 
-              <img src="../../assets/rice.jpg">
-            </ion-thumbnail>
-            <ion-label class="ion-text-wrap">Organic Rice</ion-label>
-            <ion-grid>
-              <ion-row>
-                <ion-col><ion-button color="dark">-</ion-button></ion-col>
-                <ion-col id="numb"  offset="0.7" style = "margin-top: 9px;" ><span>0</span></ion-col>
-                <ion-col><ion-button color="dark">+</ion-button></ion-col>
-              </ion-row>
-            </ion-grid>
-          </ion-item>
-          item 9
-          <ion-item>
-              <ion-thumbnail slot="start"> 
-                <img src="../../assets/wheat.jpg">
-              </ion-thumbnail>
-              <ion-label class="ion-text-wrap">Organic Wheat</ion-label>
-              <ion-grid>
-                <ion-row>
-                  <ion-col><ion-button color="dark">-</ion-button></ion-col>
-                  <ion-col id="numb"  offset="0.7" style = "margin-top: 9px;" ><span>0</span></ion-col>
-                  <ion-col><ion-button color="dark">+</ion-button></ion-col>
-                </ion-row>
-              </ion-grid>
-            </ion-item>
-             item 10 
-            <ion-item>
-                <ion-thumbnail slot="start"> 
-                  <img src="../../assets/yellowdal.jpg">
-                </ion-thumbnail>
-                <ion-label class="ion-text-wrap">Organic Yellow Dal</ion-label>
-                <ion-grid>
-                  <ion-row>
-                    <ion-col><ion-button color="dark">-</ion-button></ion-col>
-                    <ion-col id="numb"  offset="0.7" style = "margin-top: 9px;" ><span>0</span></ion-col>
-                    <ion-col><ion-button color="dark">+</ion-button></ion-col>
-                  </ion-row>
-                </ion-grid>
-              </ion-item>
-           -->
-                
+    </ion-list>
+  </div>
 </ion-content>
+
+<ion-footer style="padding: 5px;">
+  <ion-button expand="full" (click)="addToCart()" >
+    Add to Cart
+    <ion-icon name="cart" slot="start"></ion-icon>
+  </ion-button>
+</ion-footer>
