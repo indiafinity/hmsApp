@@ -26,6 +26,11 @@ export class LoginPage implements OnInit {
         message: 'Welcome ' + user.user.displayName, duration: 3000
       })).present();
       this.storage.set('username', user.user.displayName);
+      this.storage.set('currentUser', {
+        username: user.user.displayName,
+        userId: user.user.uid,
+        emailId: user.user.email,
+      });
       this.getUser(user.user.uid);
       this.navCtrl.navigateRoot('/home1');
       // this.window.
@@ -39,15 +44,11 @@ export class LoginPage implements OnInit {
   ngOnInit() {
   }
   ionViewWillEnter() {
-    this.storage.set('username', null);
-    // location.reload();
-  }
-  ionViewDidLeave() {
-    // location.reload();
+    this.storage.remove('username');
+    this.storage.remove('currentUser');
   }
   gotosignup() {
     this.navCtrl.navigateForward('/signup');
-    // this.navCtrl.pop();
   }
 
   getUser(Nuid: any) {
@@ -55,25 +56,16 @@ export class LoginPage implements OnInit {
     firebase.firestore().collection('users').where('uid', '==', Nuid).get()
         .then((doc) => {
           console.log(doc.docs[0].id);
+          this.storage.set('currentUser', {
+            username: doc.docs[0].data().name,
+            userId: doc.docs[0].data().uid,
+            email: doc.docs[0].data().email,
+          });
           console.log('User Found!!');
           this.storage.set('uid', Nuid);
           this.storage.set('docId', doc.docs[0].id);
         }).catch((error) => {
           console.log(error);
         });
-
-    // this.storage.get('uid').then((user) => {
-    //   console.log('User from Storage........', user);
-    //   if (user != null) {
-    //     firebase.firestore().collection('users').where('uid', '==', user).get()
-    //     .then((doc) => {
-    //       console.log(doc.docs[0].id);
-    //       console.log('User Found!!');
-    //     }).catch((error) => {
-    //       console.log(error);
-    //     });
-    //   }
-    //   // console.log();
-    // });
   }
 }

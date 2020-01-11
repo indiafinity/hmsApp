@@ -10,13 +10,41 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-
+<ion-content class="ion-padding-bottom">
+  <!-- <div *ngIf="addedCproducts.length == 0">
+    <ion-label ><h5 class="text-muted">No Products to Show</h5></ion-label>
+  </div>
+  <div *ngIf="addedCproducts.length > 1"> -->
+    <ion-list *ngFor="let carts of addedSproducts">
+      <ion-item class="ion-no-padding">
+        <ion-thumbnail slot="start" class="ion-padding-start">
+          <img src="{{carts.image}}">
+        </ion-thumbnail>
+        <ion-label class="ion-text-wrap" style="margin-right: -5px;">{{carts.name}}</ion-label>
+        <ion-grid class="ion-no-padding ion-padding-top ion-padding-start">
+          <ion-row class="quantity-tag">
+            <ion-col>
+              <span style="font-size: medium; color: #333333;">Quantity:</span> {{carts.qty}}
+            </ion-col>
+          </ion-row>
+          <ion-row class="text-muted ion-no-padding">
+            <ion-col>
+              <ion-label><h5 style="font-weight: bold;">You Pay</h5></ion-label>
+              <span> &nbsp; <s>&#8377;{{carts.mrp}}</s> &nbsp; &#8377;{{carts.sp}}</span>
+            </ion-col>
+            <ion-col>
+              <ion-label class="text-align-center">&#8377;{{carts.qty * carts.sp}}</ion-label>
+            </ion-col >
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+    </ion-list>
+  <!-- </div> -->
 </ion-content>
 
 <ion-footer style="padding: 5px;">
-  <ion-button expand="full" color="danger">
-    Pay Now
+  <ion-button expand="full" color="danger" (click)="PayNow()">
+    Pay &#8377; {{cartTotal}}
     <ion-icon name="card" slot="start"></ion-icon>
   </ion-button>
 </ion-footer>

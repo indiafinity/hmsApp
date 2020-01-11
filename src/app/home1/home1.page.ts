@@ -19,17 +19,13 @@ export class Home1Page implements OnInit {
   }
 
   onBarcode() {
-    // this.barcodeScanner.encode(this.barcodeScanner.Encode.TEXT_TYPE, 'farmer-new-data').then((encodeData) => {
-    //   console.log(encodeData);
-    // });
-    // this.barcodeScanner.scan().then((barData) => {
-    //   this.scannedData = JSON.stringify(barData);
-    //   console.log(barData);
-    //   console.log('-------');
-    //   console.log(this.scannedData);
-    // }).catch((error) => {
-    //   console.log(error);
-    // });
+    const options = {
+      prompt : "Place the product barcode inside the Scan Area",
+      resultDisplayDuration: 0,
+    }
+    this.barcodeScanner.scan(options).then(result => {
+      alert(result.text)
+    })
   }
 
   productspage() {

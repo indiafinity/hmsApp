@@ -27,22 +27,21 @@
     "@ionic-native/status-bar": "^5.19.1",
     "@ionic/angular": "^4.11.7",
     "@ionic/storage": "^2.2.0",
-    "angularfire2": "^5.2.3",
     "cordova-android": "^8.1.0",
     "cordova-browser": "^6.0.0",
-    "cordova-plugin-qrscanner": "^3.0.1",
     "cordova-sqlite-storage": "^3.4.1",
     "core-js": "^2.6.11",
-    "firebase": "^7.6.1",
+    "firebase": "^7.6.2",
     "ngx-qrcode2": "0.0.9",
     "phonegap-plugin-barcodescanner": "^8.1.0",
     "rxjs": "^6.5.4",
+    "sharp": "^0.23.4",
     "tslib": "^1.9.0",
     "zone.js": "~0.9.1"
   },
   "devDependencies": {
     "@angular-devkit/architect": "~0.801.2",
-    "@angular-devkit/build-angular": "^0.803.21",
+    "@angular-devkit/build-angular": "^0.803.22",
     "@angular-devkit/core": "~8.1.2",
     "@angular-devkit/schematics": "~8.1.2",
     "@angular/cli": "~8.1.2",
@@ -84,7 +83,6 @@
         "ANDROID_SUPPORT_ANNOTATIONS_VERSION": "27.+"
       },
       "cordova-plugin-ionic-keyboard": {},
-      "cordova-plugin-qrscanner": {},
       "phonegap-plugin-barcodescanner": {}
     },
     "platforms": [

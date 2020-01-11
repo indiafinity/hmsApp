@@ -12,8 +12,7 @@ import { Router, NavigationExtras } from '@angular/router';
 export class MyprofilePage implements OnInit {
 
   constructor(public storage: Storage, public router: Router) {}
-  UserInfo = {
-    docId: '',
+  user = {
     uid: '',
     name: '',
     email: '',
@@ -25,7 +24,7 @@ export class MyprofilePage implements OnInit {
     state: '',
     pincode: ''
   };
-  user = this.UserInfo;
+  // user = [];
 
   profile() {
 
@@ -41,34 +40,37 @@ export class MyprofilePage implements OnInit {
   }
 
   async callUser() {
-    this.storage.get('uid').then((val) => {
-      this.UserInfo.uid = val;
-      console.log(this.UserInfo.uid);
+    await this.storage.get('currentUser').then((val) => {
+      if (val != undefined) {
+        this.user.uid = val.userId;
+        console.log(this.user.uid);
+      } 
     });
-    await this.storage.get('docId').then((val) => {
-      this.UserInfo.docId = val;
-      console.log(this.UserInfo.docId);
-    });
+    
+    if (this.user.uid.length > 0) {
+      await firebase.firestore().collection('users').doc(this.user.uid).get()
+      .then((doc) => {
+        if (doc.exists) {
+          console.log(doc.data());
+          this.user.name = doc.data().name;
+          this.user.email = doc.data().email;
+          this.user.phone = doc.data().phone;
+          this.user.flat = doc.data().flat;
+          this.user.building = doc.data().building;
+          this.user.area = doc.data().area;
+          this.user.city = doc.data().city;
+          this.user.state = doc.data().state;
+          this.user.pincode = doc.data().pincode;
+        } else {
+          console.log('No User found!');
+        }
+      }).catch((error) => {
+        console.log(error);
+      });
+    } else {
+      console.log('Please Login..');
+    }
 
-    await firebase.firestore().collection('users').doc(this.UserInfo.docId).get()
-    .then((doc) => {
-      if (doc.exists) {
-        console.log(doc.data());
-        this.user.name = doc.data().name;
-        this.user.email = doc.data().email;
-        this.user.phone = doc.data().phone;
-        this.user.flat = doc.data().flat;
-        this.user.building = doc.data().building;
-        this.user.area = doc.data().area;
-        this.user.city = doc.data().city;
-        this.user.state = doc.data().state;
-        this.user.pincode = doc.data().pincode;
-      } else {
-        console.log('No User found!');
-      }
-    }).catch((error) => {
-      console.log(error);
-    });
   }
 
   cartBtn() {

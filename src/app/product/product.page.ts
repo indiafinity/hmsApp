@@ -17,6 +17,8 @@ export class ProductPage implements OnInit {
     image: '',
     limit: 0,
     total: 0,
+    mrp: 0,
+    sp: 0,
   }];
 
   addedProducts = [];
@@ -48,6 +50,8 @@ export class ProductPage implements OnInit {
           image: prods.data().image,
           limit: prods.data().limit,
           total: prods.data().total,
+          mrp: prods.data().mrp,
+          sp: prods.data().sp,
         });
       });
     });
@@ -97,6 +101,8 @@ export class ProductPage implements OnInit {
         image: '../../assets/tomotoes.jpeg',
         limit: 5,
         total: 15,
+        mrp: 100,
+        sp: 90,
       },
       {
         uid: '02',
@@ -105,6 +111,8 @@ export class ProductPage implements OnInit {
         image: '../../assets/beetroot.jpg',
         limit: 5,
         total: 15,
+        mrp: 100,
+        sp: 90,
       },
       {
         uid: '03',
@@ -113,6 +121,8 @@ export class ProductPage implements OnInit {
         image: '../../assets/carrot.jpg',
         limit: 5,
         total: 15,
+        mrp: 100,
+        sp: 90,
       },
       {
         uid: '04',
@@ -121,6 +131,8 @@ export class ProductPage implements OnInit {
         image: '../../assets/corn.jpg',
         limit: 5,
         total: 15,
+        mrp: 100,
+        sp: 90,
       },
       {
         uid: '05',
@@ -129,6 +141,8 @@ export class ProductPage implements OnInit {
         image: '../../assets/onions.jpg',
         limit: 5,
         total: 15,
+        mrp: 100,
+        sp: 90,
       },
       {
         uid: '06',
@@ -137,6 +151,8 @@ export class ProductPage implements OnInit {
         image: '../../assets/pototoes.jpg',
         limit: 5,
         total: 15,
+        mrp: 100,
+        sp: 90,
       },
       {
         uid: '07',
@@ -145,6 +161,8 @@ export class ProductPage implements OnInit {
         image: '../../assets/rajma.jpg',
         limit: 5,
         total: 15,
+        mrp: 100,
+        sp: 90,
       },
       {
         uid: '08',
@@ -153,6 +171,8 @@ export class ProductPage implements OnInit {
         image: '../../assets/rice.jpg',
         limit: 5,
         total: 15,
+        mrp: 100,
+        sp: 90,
       },
       {
         uid: '09',
@@ -161,6 +181,8 @@ export class ProductPage implements OnInit {
         image: '../../assets/wheat.jpg',
         limit: 5,
         total: 15,
+        mrp: 100,
+        sp: 90,
       },
       {
         uid: '10',
@@ -169,6 +191,8 @@ export class ProductPage implements OnInit {
         image: '../../assets/yellowdal.jpg',
         limit: 5,
         total: 15,
+        mrp: 100,
+        sp: 90,
       },
     ];
   }
@@ -198,7 +222,9 @@ export class ProductPage implements OnInit {
           qty: vals.qty,
           image: vals.image,
           limit: vals.limit,
-          total: vals.total
+          total: vals.total,
+          mrp: vals.mrp,
+          sp: vals.sp,
         })
       }
     })

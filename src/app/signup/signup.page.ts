@@ -39,7 +39,6 @@ signup() {
       }).then(async () => {
         console.log('Profile Updated');
         this.uid = firebase.auth().currentUser.uid.toString();
-        // console.log(this.name, this.email, this.password, this.uid);
         this.saveUser.name = this.name;
         this.saveUser.email = this.email;
         this.saveUser.uid = this.uid;
@@ -84,11 +83,11 @@ signup() {
   this.navCtrl.navigateBack('/login');
  }
  ionViewWillEnter() {
-   this.storage.set('username', null);
+   this.storage.remove('username');
  }
 
  register() {
-   firebase.firestore().collection('users').add({
+   firebase.firestore().collection('users').doc(this.saveUser.uid).set({
      uid: this.saveUser.uid,
      name: this.saveUser.name,
      email: this.saveUser.email,
@@ -101,6 +100,11 @@ signup() {
      pincode: ''
    }).then(() => {
      console.log('User created in Firestore..');
+     this.storage.set('currentUser', {
+      username: this.saveUser.name,
+      userId: this.saveUser.uid,
+      email: this.saveUser.email,
+    });
    })
    .catch((error) => {
      console.log(error);

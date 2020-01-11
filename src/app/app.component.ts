@@ -11,7 +11,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
   styleUrls: ['app.component.scss']
 })
 export class AppComponent {
-  username: '';
+  username: any;
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
@@ -29,12 +29,13 @@ export class AppComponent {
       this.splashScreen.hide();
     });
 
-    this.storage.get('username').then(async (val) => {
-      if (val === null) {
+    this.storage.get('currentUser').then(async (val) => {
+      if (val == undefined) {
+        this.username = 'Guest';
         // this.navCtrl.navigateRoot('/login'); // forces user to login
       } else {
-        this.username = val;
-        console.log('User: ' + val);
+        this.username = await val.username;
+        console.log('User: ' + val.username);
       }
     });
 
