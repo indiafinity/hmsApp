@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/myorders"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">Order Display</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- <div *ngIf="cproducts.length > 1" class="padding-bottom"> -->
+    <ion-label ><h5 class="text-muted">Total {{oproducts.length}} products</h5></ion-label>
+      <ion-list *ngFor="let prod of oproducts">
+        <ion-item>
+          <!-- <ion-thumbnail slot="start">
+            <img src="{{prod.image}}">
+          </ion-thumbnail> -->
+          <ion-label>{{ prod.prod_name }}</ion-label>
+          <ion-label><b>&#8377; {{prod.price}}</b></ion-label>
+          <ion-label>Quantity: {{ prod.qty }}</ion-label>
+          <ion-label>Total: {{ prod.total }}</ion-label>
+          <!-- <ion-label>{{ prod.prod_name }}</ion-label><br> -->
+          <ion-grid>
+            <ion-row>
+            <!-- <ion-col>
+              <ion-button id="minusBtn" color="dark" (click)="onMinus(prod.uid)">{{minus}}</ion-button>
+            </ion-col>
+            <ion-col id="qtyShow" offset="1.25" style="margin-top: 9px;">{{prod.qty}}</ion-col>
+            <ion-col>
+              <ion-button id="plusBtn" color="dark" (click)="onPlus(prod.uid)">{{plus}}</ion-button>
+            </ion-col> -->
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+      </ion-list>
+    <!-- </div> -->
+
+</ion-content>

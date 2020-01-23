@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import * as firebase from 'firebase/app';
 import 'firebase/firestore';
 import { Router, NavigationExtras } from '@angular/router';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-product',
@@ -29,19 +30,20 @@ export class ProductPage implements OnInit {
   minus = '-';
   cnt = 0;
   
-  constructor(private router:Router) {}
+  constructor(private router:Router, private storage: Storage) {}
 
   ngOnInit() {
     this.cproducts = [];
     this.searchBar = document.querySelector('ion-searchbar');
 
-    // await this.loadAllProducts(); // firebase call to load all products
-    this.loadDummyData();   // dummy data for all product 
+    this.loadAllProducts(); // firebase call to load all products
+    // this.loadDummyData();   // dummy data for all product 
     this.searchBar.addEventListener('ionInput', this.handleInput);
   }
   
-  loadAllProducts() {
-    firebase.firestore().collection('cproducts').get().then((querySnapshot) => {
+  async loadAllProducts() {
+    this.cproducts = [];
+    await firebase.firestore().collection('cproducts').get().then((querySnapshot) => {
       querySnapshot.forEach((prods) => {
         this.cproducts.push({
           uid: prods.id,
@@ -212,8 +214,8 @@ export class ProductPage implements OnInit {
     });
   }
 
-  addToCart() {
-
+  async addToCart() {
+    this.addedProducts = [];
     this.cproducts.forEach(vals => {
       if (vals.qty > 0) {
         this.addedProducts.push({
@@ -227,17 +229,17 @@ export class ProductPage implements OnInit {
           sp: vals.sp,
         })
       }
-    })
+    });
+    console.log(this.addedProducts);
 
     let navigateExtras: NavigationExtras = {
       state: {
         addedCproducts: this.addedProducts,
       }
     };
+    
+    await this.storage.set('addedProducts', this.addedProducts);
     this.router.navigateByUrl('/cart', navigateExtras);
-  }
-  cartBtn() {
-    this.router.navigateByUrl('/cart');
   }
 
 }

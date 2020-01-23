@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>My Orders</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div>
+    <ion-card (click)="viewOrder()">
+      <ion-card-header>
+        <ion-card-title>January 21, 2020 at 12:35:46 AM</ion-card-title>
+        <ion-card-subtitle><ion-icon name="checkmark"></ion-icon> Order Placed</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-label>Total items: 2 <br> Total Amount: &#8377; 96</ion-label>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+</ion-content>

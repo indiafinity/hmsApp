@@ -3,6 +3,9 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { NavController, AlertController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 
+import * as firebase from 'firebase/app';
+import 'firebase/firestore';
+
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.page.html',
@@ -21,40 +24,38 @@ export class CartPage implements OnInit {
         this.addedCproducts = [];
         if (this.router.getCurrentNavigation().extras.state) {
           this.addedCproducts = this.router.getCurrentNavigation().extras.state.addedCproducts;
-          // this.storage.set('addedProducts', this.addedCproducts);
+          this.calculate();
         }
       })
     }
 
     addedCproducts = [];
     addedSproducts = [];
+    checkout = [];
     cartTotal = 0;
-    currentUser = [];
+    currentUser = {
+      username: '',
+      userId: '',
+      email: '',
+    };
+    user1 = {
+      uid: '',
+      pincode: '',
+      ord_uid: ''
+    };
+
+    ngOnInit() {}
     
-  ngOnInit() {
+  ionViewWillEnter() {
     // console.log(this.addedCproducts);
     // this.storage.remove('addedProducts');
-    // this.storage.get('addedProducts').then(products => {
-    //   console.log(products);
-    //   this.addedSproducts.push({
-    //     uid: products.uid,
-    //     name: products.name,
-    //     qty: products.qty,
-    //     image: products.image,
-    //     limit: products.limit,
-    //     total: products.total,
-    //     mrp: products.mrp,
-    //     sp: products.sp,
-    //   })
-    // });
-    // console.log(this.addedCproducts);
-    this.loadDummyData()
-    this.addedSproducts.forEach(iters => {
-      if (this.addedSproducts.length > 0) {
-        let sum = iters.qty * iters.sp
-        this.cartTotal = this.cartTotal + sum;
-      }
-    })
+    // this.StorageCall();
+    // console.log(this.addedSproducts);
+    // this.loadDummyData()
+    this.storage.get('currentUser').then(user => {
+      console.log(user);
+      this.currentUser = user;
+    });
   }
 
   loadDummyData() {
@@ -167,18 +168,92 @@ export class CartPage implements OnInit {
     // this.router.navigateByUrl('/product');
   }
 
+  async StorageCall() {
+    await this.storage.get('addedProducts').then(products => {
+      console.log(products);
+      this.addedSproducts.push({
+        uid: products.uid,
+        name: products.name,
+        qty: products.qty,
+        image: products.image,
+        limit: products.limit,
+        total: products.total,
+        mrp: products.mrp,
+        sp: products.sp,
+      })
+    });
+    this.calculate();
+  }
+
   async PayNow() {
-    this.storage.get('currentUser').then(user => {
-      console.log(user);
+    
+    await firebase.firestore().collection('users').where('uid', '==', this.currentUser.userId).get()
+    .then((query) => {
+      this.user1 = {
+        uid: query.docs[0].id,
+        pincode: query.docs[0].data().pincode,
+        ord_uid: ''
+      };
     })
+
+    await firebase.firestore().collection('customer-orders').add({
+      customer_uid: this.user1.uid,
+      pincode: this.user1.pincode,
+      total_amt: this.cartTotal,
+      total_items: this.addedCproducts.length,
+      timestamp: firebase.firestore.Timestamp.now(),
+      status: 'Placed'
+    }).then((result) => {
+      this.user1.ord_uid = result.id;
+      firebase.firestore().collection('customer-orders').doc(result.id).set({
+        uid: this.user1.ord_uid
+      }, {merge: true});
+      }).catch(error => {
+        console.log(error.message);
+      });
+
+      this.addedCproducts.forEach(async prods => {
+        // this.checkout.push({
+        //   prod_uid: prods.uid,
+        //   prod_name: prods.name,
+        //   sp: prods.sp,
+        //   qty: prods.qty
+        // });
+        await firebase.firestore().collection('customer-orders').doc(this.user1.ord_uid).collection('items').add({
+          uid: '',
+          prod_uid: prods.uid,
+          prod_name: prods.name,
+          qty: prods.qty,
+          price: prods.sp,
+          total: (prods.sp * prods.qty)
+        }).then((itm) => {
+          firebase.firestore().collection('customer-orders').doc(this.user1.ord_uid)
+          .collection('items').doc(itm.id).update({
+            uid: itm.id
+          });
+        });
+      });
+    
+
     const alert = await this.alertCtrl.create({
       message: '<span class="text-center"><img src="../../../assets/green-tick-48.png"><h4>Order Placed!!</h4><span>',
-      // buttons: ['dismiss']
     });
     await alert.present();
     setTimeout(() => {
+      
       alert.dismiss();
-      this.navCtrl.navigateForward('home1');
+      this.navCtrl.navigateForward('/home1');
     }, 2000);
+  }
+
+  calculate() {
+    this.addedCproducts.forEach(iters => {
+      if (this.addedCproducts.length > 0) {
+        let sum = iters.qty * iters.sp;
+        this.cartTotal = this.cartTotal + sum;
+      } else if (this.addedCproducts.length == 0) {
+        this.cartTotal = 0
+      } 
+    });
   }
 }

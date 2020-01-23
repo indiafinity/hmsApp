@@ -6,16 +6,16 @@
     <ion-buttons slot="end" (click)="onEditBtn()" class="end-icon-btn ion-padding-end">
       <ion-icon name="create" id="editBtn"></ion-icon>
     </ion-buttons>
-    <ion-title>My Cart</ion-title>
+    <ion-title class="ion-text-center">My Cart</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding-bottom">
-  <!-- <div *ngIf="addedCproducts.length == 0">
+  <div *ngIf="addedCproducts.length == 0">
     <ion-label ><h5 class="text-muted">No Products to Show</h5></ion-label>
   </div>
-  <div *ngIf="addedCproducts.length > 1"> -->
-    <ion-list *ngFor="let carts of addedSproducts">
+  <div *ngIf="addedCproducts.length > 0">
+    <ion-list *ngFor="let carts of addedCproducts">
       <ion-item class="ion-no-padding">
         <ion-thumbnail slot="start" class="ion-padding-start">
           <img src="{{carts.image}}">
@@ -39,12 +39,22 @@
         </ion-grid>
       </ion-item>
     </ion-list>
-  <!-- </div> -->
+  </div>
 </ion-content>
 
-<ion-footer style="padding: 5px;">
-  <ion-button expand="full" color="danger" (click)="PayNow()">
-    Pay &#8377; {{cartTotal}}
-    <ion-icon name="card" slot="start"></ion-icon>
-  </ion-button>
-</ion-footer>
+<div *ngIf="addedCproducts.length == 0">
+  <ion-footer style="padding: 5px;">
+    <ion-button expand="full" color="danger" (click)="PayNow()" disabled>
+      Pay &#8377; {{cartTotal}}
+      <ion-icon name="card" slot="start"></ion-icon>
+    </ion-button>
+  </ion-footer>
+</div>
+<div *ngIf="addedCproducts.length > 0">
+  <ion-footer style="padding: 5px;">
+    <ion-button expand="full" color="danger" (click)="PayNow()">
+      Pay &#8377; {{cartTotal}}
+      <ion-icon name="card" slot="start"></ion-icon>
+    </ion-button>
+  </ion-footer>
+</div>
