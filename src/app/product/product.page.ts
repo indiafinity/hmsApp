@@ -36,8 +36,8 @@ export class ProductPage implements OnInit {
     this.cproducts = [];
     this.searchBar = document.querySelector('ion-searchbar');
 
-    this.loadAllProducts(); // firebase call to load all products
-    // this.loadDummyData();   // dummy data for all product 
+    // this.loadAllProducts(); // firebase call to load all products
+    this.loadDummyData();   // dummy data for all product 
     this.searchBar.addEventListener('ionInput', this.handleInput);
   }
   

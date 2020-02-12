@@ -17,14 +17,14 @@
       <ion-icon name="key"></ion-icon>
         <ion-input type="password" placeholder="Password" [(ngModel)]="UserInfo.password" ></ion-input>
     </ion-row>
-    <ion-row>
-      <ion-button expand="block" fill="outline"  color="dark" style="margin-left: 120px;" (click)="login()">
+    <ion-row class="ion-justify-content-center">
+      <ion-button expand="block" fill="outline"  color="dark" (click)="login()">
         Login
       </ion-button>
     </ion-row>
+    <ion-button expand="block" fill="clear" (click)="gotosignup()">
+      Don't have an account? Sign Up
+    </ion-button>
   </ion-grid>
   
-  <ion-button expand="block" fill="clear" (click)="gotosignup()">
-    Don't have an account? Sign Up
-  </ion-button>
 </ion-content>

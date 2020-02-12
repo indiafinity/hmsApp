@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import * as firebase from 'firebase/app';
 import 'firebase/firestore';
 import { Storage } from '@ionic/storage';
-import { Router, NavigationExtras } from '@angular/router';
+import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-myprofile',
@@ -11,7 +12,21 @@ import { Router, NavigationExtras } from '@angular/router';
 })
 export class MyprofilePage implements OnInit {
 
-  constructor(public storage: Storage, public router: Router) {}
+  constructor(
+    public storage: Storage,
+    public router: Router,
+    private navCtrl: NavController,
+    private route: ActivatedRoute) {
+      this.route.queryParams.subscribe(() => {
+        if (this.router.getCurrentNavigation().extras.state) {
+          this.user = this.router.getCurrentNavigation().extras.state.profile;
+          this.addedProducts = this.router.getCurrentNavigation().extras.state.addedCProducts;
+        }
+      });
+  }
+
+  addedProducts = [];
+
   user = {
     uid: '',
     name: '',
@@ -22,21 +37,29 @@ export class MyprofilePage implements OnInit {
     area: '',
     city: '',
     state: '',
-    pincode: ''
+    pincode: '',
+    ord_uid: ''
   };
-  // user = [];
 
   profile() {
-
     const navigationExtras: NavigationExtras = {
-      state: this.user
-    };
-    this.router.navigate(['/edit-profile'], navigationExtras);
+      state: {
+        profile: this.user,
+        addedProducts: this.addedProducts
+      }
+    }
+    this.navCtrl.navigateForward('/edit-profile', navigationExtras);
+    // this.router.navigate(['/edit-profile'], navigationExtras);
   }
   ngOnInit() {
   }
   ionViewWillEnter() {
-    this.callUser();
+    if (this.user.uid.length == 0) {
+      console.log('Calling values from firebase.')
+      this.callUser();
+    } else {
+      console.log('calling values from NavCtrl.')
+    }
   }
 
   async callUser() {
@@ -74,7 +97,13 @@ export class MyprofilePage implements OnInit {
   }
 
   cartBtn() {
-    this.router.navigateByUrl('/cart');
+    let navigationExtras: NavigationExtras = {
+      state: {
+        addedCProducts: this.addedProducts
+      }
+    }
+    // this.router.navigateByUrl('/cart');
+    this.navCtrl.navigateForward('/cart', navigationExtras);
   }
 
 }

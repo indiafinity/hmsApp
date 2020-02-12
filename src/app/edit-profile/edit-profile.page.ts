@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 import { NavController, ToastController, AlertController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
+
 import * as firebase from 'firebase/app';
 import 'firebase/firestore';
 
@@ -12,8 +13,6 @@ import 'firebase/firestore';
 })
 export class EditProfilePage implements OnInit {
 
-  data: any = [];
-
   constructor(
     public activatedRoute: ActivatedRoute,
     public router: Router,
@@ -22,21 +21,31 @@ export class EditProfilePage implements OnInit {
     public alertCtrl: AlertController,
     public storage: Storage) {
 
-    this.activatedRoute.queryParams.subscribe(params => {
+    this.activatedRoute.queryParams.subscribe(() => {
       if (this.router.getCurrentNavigation().extras.state) {
-        this.data = this.router.getCurrentNavigation().extras.state;
-        console.log(this.data);
+        this.data = this.router.getCurrentNavigation().extras.state.profile;
+        this.addedProducts = this.router.getCurrentNavigation().extras.state.addedProducts;
+        // console.log(this.data);
       }
     });
   }
 
+  data: any = [];
+  addedProducts: any = [];
+
   cancel() {
-    this.navCtrl.navigateBack('/myprofile');
+    let navigationExtras: NavigationExtras = {
+      state: {
+        profile: this.data,
+        addedCProducts: this.addedProducts
+      }
+    }
+    this.navCtrl.navigateBack('/myprofile', navigationExtras);
   }
 
   updateData() {
     console.log(this.data);
-    firebase.firestore().collection('users').doc(this.data.docId).set({
+    firebase.firestore().collection('users').doc(this.data.uid).set({
       name: this.data.name,
       email: this.data.email,
       phone: this.data.phone,
@@ -57,7 +66,13 @@ export class EditProfilePage implements OnInit {
             text: 'ok',
             role: 'submit',
             handler: () => {
-            this.navCtrl.navigateRoot('/myprofile');
+              let navigationExtras: NavigationExtras = {
+                state: {
+                  profile: this.data,
+                  addedCProducts: this.addedProducts
+                }
+              }
+              this.navCtrl.navigateBack('/myprofile', navigationExtras);
           }
         }]
       })).present();

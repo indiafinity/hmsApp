@@ -3,7 +3,10 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/myorders"></ion-back-button>
     </ion-buttons>
-    <ion-title class="ion-text-center">Order Display</ion-title>
+    <ion-title class="ion-text-center">{{timestamp.toDate() | date:'MMM dd, yyyy -- hh:mm a '}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-icon name="add" class="end-icon-btn ion-padding-end"></ion-icon>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 

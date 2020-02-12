@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Storage } from '@ionic/storage';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import * as firebase from 'firebase/app';
 import 'firebase/firestore';
@@ -11,7 +12,21 @@ import 'firebase/firestore';
 })
 export class ShoworderPage implements OnInit {
 
-  constructor(private storage: Storage) { }
+  constructor(
+    private storage: Storage,
+    private route: ActivatedRoute,
+    private router: Router) { 
+    this.route.queryParams.subscribe(params => {
+      this.order_uid = '';
+      if (this.router.getCurrentNavigation().extras.state) {
+        this.order_uid = this.router.getCurrentNavigation().extras.state.order_uid;
+        this.timestamp = this.router.getCurrentNavigation().extras.state.timestamp;
+      }
+    });
+  }
+
+  order_uid: '';
+  timestamp: any;
 
   oproducts = [];
   currentUser = {
@@ -29,10 +44,29 @@ export class ShoworderPage implements OnInit {
         email: user.email
       };
     });
-    this.displayOrderFirebase();
+    console.log(this.order_uid);
+    this.orderItemsFirebase()
+    // this.displayOrderFirebase();
   }
 
   ngOnInit() {
+  }
+
+  orderItemsFirebase() {
+    firebase.firestore().collection('customer-orders').doc(this.order_uid).collection('items').get()
+    .then(items => {
+      items.forEach(itemOne => {
+        console.log(itemOne.data().prod_name)
+        this.oproducts.push({
+          uid: itemOne.id,
+          prod_name: itemOne.data().prod_name,
+          prod_uid: itemOne.data().prod_uid,
+          qty: itemOne.data().qty,
+          total: itemOne.data().total,
+          price: itemOne.data().price
+        });
+      });
+    });
   }
 
   async displayOrderFirebase() {
@@ -51,11 +85,11 @@ export class ShoworderPage implements OnInit {
               qty: itemOne.data().qty,
               total: itemOne.data().total,
               price: itemOne.data().price
-            })
-          })
-        })
-      })
-    })
+            });
+          });
+        });
+      });
+    });
   }
 
 }

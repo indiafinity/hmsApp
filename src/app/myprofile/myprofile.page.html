@@ -2,6 +2,7 @@
   <ion-toolbar>
       <ion-buttons slot="start">
           <ion-menu-button id="content"></ion-menu-button>
+          <!-- <ion-back-button defaultHref="/home1"></ion-back-button> -->
         </ion-buttons>
     <ion-title class="ion-text-center">My Profile</ion-title>
     <ion-buttons slot="end" (click)="cartBtn()">
@@ -14,54 +15,31 @@
   <ion-list>
     <ion-item> 
       <ion-label class="ion-text-wrap"> Name: &nbsp; {{ user.name }} </ion-label>
-      <!-- <ion-label  class="ion-text-wrap"> {{ user.name }}</ion-label> -->
     </ion-item>
     <ion-item> 
         <ion-label class="ion-text-wrap"> E-mail: &nbsp; {{ user.email }}</ion-label>
-        <!-- <ion-label  class="ion-text-wrap" > {{ user.email }} </ion-label> -->
     </ion-item>
     <ion-item> 
         <ion-label class="ion-text-wrap"> Phone No: &nbsp; {{ user.phone }} </ion-label>
-        <!-- <ion-label  class="ion-text-wrap"> {{ user.phone }} </ion-label> -->
     </ion-item>
     <ion-item> 
         <ion-label class="ion-text-wrap"> Flat: &nbsp; {{ user.flat }}</ion-label>
-        <!-- <ion-label  class="ion-text-wrap"> {{ user.flat }} </ion-label> -->
     </ion-item>
     <ion-item> 
         <ion-label class="ion-text-wrap"> Building: &nbsp; {{ user.building }}</ion-label>
-        <!-- <ion-label  class="ion-text-wrap"> {{ user.building }} </ion-label> -->
     </ion-item>
     <ion-item> 
         <ion-label class="ion-text-wrap"> Area: &nbsp; {{ user.area }}</ion-label>
-        <!-- <ion-label  class="ion-text-wrap"> {{ user.area }} </ion-label> -->
     </ion-item>
     <ion-item> 
         <ion-label class="ion-text-wrap"> City: &nbsp; {{ user.city }} </ion-label>
-        <!-- <ion-label  class="ion-text-wrap"> {{ user.city }} </ion-label> -->
     </ion-item>
     <ion-item> 
         <ion-label class="ion-text-wrap"> State: &nbsp; {{ user.state }}</ion-label>
-        <!-- <ion-label  class="ion-text-wrap"> {{ user.state }} </ion-label> -->
     </ion-item>
     <ion-item> 
         <ion-label class="ion-text-wrap"> Pin Code: &nbsp; {{ user.pincode }}</ion-label>
-        <!-- <ion-label  class="ion-text-wrap"> {{ user.pincode }} </ion-label> -->
     </ion-item>
-    <!-- <ion-item> 
-        <ion-label> Phone No: </ion-label>
-        <ion-input  {{ [(ngModel)]="user.phone"}}></ion-input>
-    </ion-item>
-    <ion-item> 
-        <ion-label> Address: </ion-label>
-        <ion-input  {{ [(ngModel)]="user.address"}}></ion-input>
-    </ion-item> -->
-    <!-- <ion-item>E-mail: <ion-input  {{ [(ngModel)]="email"}}></ion-input> </ion-item>
-    <ion-item>Gender: Female</ion-item>
-    <ion-item>Address: D1-53, Snehdhara Scociety, Vile Parle West</ion-item>
-    <ion-item>Phone Number: 227783239</ion-item>
-    <ion-item>Change Password</ion-item> -->
   </ion-list>
-  <!-- <ion-button expand="full" color="danger" (click)="callUser()">User Details</ion-button> -->
   <ion-button expand="full" color="primary" (click)="profile()">Edit Profile</ion-button>
 </ion-content>
