@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import * as firebase from 'firebase/app';
 import 'firebase/firestore';
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-showorder',
@@ -15,6 +16,7 @@ export class ShoworderPage implements OnInit {
   constructor(
     private storage: Storage,
     private route: ActivatedRoute,
+    private loadingCtrl: LoadingController,
     private router: Router) { 
     this.route.queryParams.subscribe(params => {
       this.order_uid = '';
@@ -45,6 +47,10 @@ export class ShoworderPage implements OnInit {
       };
     });
     console.log(this.order_uid);
+    (await this.loadingCtrl.create({
+      message: 'Please Wait',
+      duration: 5000
+    })).present();
     this.orderItemsFirebase()
     // this.displayOrderFirebase();
   }
@@ -67,29 +73,30 @@ export class ShoworderPage implements OnInit {
         });
       });
     });
+    this.loadingCtrl.dismiss();
   }
 
-  async displayOrderFirebase() {
-    await firebase.firestore().collection('customer-orders')
-    .where('customer_uid', '==', this.currentUser.userId).get().then(querySnapshot => {
-      console.log(querySnapshot.size);
-      querySnapshot.forEach(subQuery => {
-        firebase.firestore().collection('customer-orders').doc(subQuery.id).collection('items').get()
-        .then(items => {
-          items.forEach(itemOne => {
-            console.log(itemOne.data().prod_name)
-            this.oproducts.push({
-              uid: itemOne.id,
-              prod_name: itemOne.data().prod_name,
-              prod_uid: itemOne.data().prod_uid,
-              qty: itemOne.data().qty,
-              total: itemOne.data().total,
-              price: itemOne.data().price
-            });
-          });
-        });
-      });
-    });
-  }
+  // async displayOrderFirebase() {
+  //   await firebase.firestore().collection('customer-orders')
+  //   .where('customer_uid', '==', this.currentUser.userId).get().then(querySnapshot => {
+  //     console.log(querySnapshot.size);
+  //     querySnapshot.forEach(subQuery => {
+  //       firebase.firestore().collection('customer-orders').doc(subQuery.id).collection('items').get()
+  //       .then(items => {
+  //         items.forEach(itemOne => {
+  //           console.log(itemOne.data().prod_name)
+  //           this.oproducts.push({
+  //             uid: itemOne.id,
+  //             prod_name: itemOne.data().prod_name,
+  //             prod_uid: itemOne.data().prod_uid,
+  //             qty: itemOne.data().qty,
+  //             total: itemOne.data().total,
+  //             price: itemOne.data().price
+  //           });
+  //         });
+  //       });
+  //     });
+  //   });
+  // }
 
 }

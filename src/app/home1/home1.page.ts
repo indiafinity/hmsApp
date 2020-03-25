@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 
 import * as firebase from 'firebase/app';
 import 'firebase/firestore';
-import { AlertController } from '@ionic/angular';
+import { AlertController, NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home1',
@@ -19,9 +19,10 @@ export class Home1Page implements OnInit {
     farmer: ''
   };
 
-  constructor(private barcodeScanner: BarcodeScanner, private router: Router, private alertCtrl: AlertController) {
-    this.encodeData = 'https://www.FreakyJolly.com';
-  }
+  constructor(
+    private barcodeScanner: BarcodeScanner,
+    private router: Router,
+    private navCtrl: NavController) {}
 
   alertM: any;
 
@@ -34,19 +35,13 @@ export class Home1Page implements OnInit {
       resultDisplayDuration: 0,
     }
     this.barcodeScanner.scan(options).then(async result => {
-      //  this.alertM = this.alertCtrl.create({
-      //   header: 'Loading please wait for 5 seconds...',
-        
-      // })
-      // alert(result.text)
       await firebase.firestore().collection('farmers').where('uid', '==', result.text).get()
       .then(async query => {
         this.scannedData = {
           uid: query.docs[0].id.toString(),
           taluka: query.docs[0].data().taluka,
-          farmer: query.docs[0].data().fname + query.docs[0].data().lname
+          farmer: query.docs[0].data().fname + ' ' + query.docs[0].data().lname
         };
-        // (await this.alertM).disimiss();
         alert('Your Product has been brought to you from the village of ' +this.scannedData.taluka+'. Organically grown by '+this.scannedData.farmer);
       });
     });
@@ -54,17 +49,23 @@ export class Home1Page implements OnInit {
   }
   // Your Product has been brought to you from the village of [village]. Organically grown by [farmer].
   productspage() {
-    this.router.navigateByUrl('/product');
+    this.navCtrl.navigateForward('/product');
   }
 
   cartBtn() {
-    this.router.navigateByUrl('/cart');
+    this.navCtrl.navigateForward('/cart');
   }
   contactUs() {
-    this.router.navigateByUrl('/contact-us');
+    this.navCtrl.navigateForward('/contact-us');
   }
   myOrders() {
-    this.router.navigateByUrl('/myorders');
+    this.navCtrl.navigateForward('/myorders');
+  }
+  smartBasket() {
+    this.navCtrl.navigateForward('/smart-basket');
+  }
+  wallet() {
+    this.navCtrl.navigateForward('/wallet');
   }
 
 }

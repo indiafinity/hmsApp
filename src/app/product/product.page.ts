@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import * as firebase from 'firebase/app';
 import 'firebase/firestore';
-import { Router, NavigationExtras } from '@angular/router';
+import { NavigationExtras } from '@angular/router';
 import { Storage } from '@ionic/storage';
+import { LoadingController, NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-product',
@@ -30,20 +31,27 @@ export class ProductPage implements OnInit {
   minus = '-';
   cnt = 0;
   
-  constructor(private router:Router, private storage: Storage) {}
+  constructor(
+    private navCtrl: NavController,
+    private loadingCtrl: LoadingController) {}
 
-  ngOnInit() {
+  async ngOnInit() {
     this.cproducts = [];
     this.searchBar = document.querySelector('ion-searchbar');
+    (await this.loadingCtrl.create({
+      message: 'Please Wait..',
+      duration: 5000
+    })).present();
 
-    // this.loadAllProducts(); // firebase call to load all products
-    this.loadDummyData();   // dummy data for all product 
+    this.loadAllProducts(); // firebase call to load all products
+    // this.loadDummyData();   // dummy data for all product 
     this.searchBar.addEventListener('ionInput', this.handleInput);
   }
   
   async loadAllProducts() {
     this.cproducts = [];
-    await firebase.firestore().collection('cproducts').get().then((querySnapshot) => {
+    await firebase.firestore().collection('cproducts').orderBy('name')
+    .get().then((querySnapshot) => {
       querySnapshot.forEach((prods) => {
         this.cproducts.push({
           uid: prods.id,
@@ -57,6 +65,7 @@ export class ProductPage implements OnInit {
         });
       });
     });
+    this.loadingCtrl.dismiss();
   }
 
   onPlus(id) {
@@ -238,8 +247,8 @@ export class ProductPage implements OnInit {
       }
     };
     
-    await this.storage.set('addedProducts', this.addedProducts);
-    this.router.navigateByUrl('/cart', navigateExtras);
+    // await this.storage.set('addedProducts', this.addedProducts);
+    this.navCtrl.navigateForward('/cart', navigateExtras);
   }
 
 }

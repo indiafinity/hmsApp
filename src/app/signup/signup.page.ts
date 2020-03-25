@@ -97,7 +97,8 @@ signup() {
      area: '',
      city: '',
      state: '',
-     pincode: ''
+     pincode: '',
+     wallet: 0
    }).then(() => {
      console.log('User created in Firestore..');
      this.storage.set('currentUser', {

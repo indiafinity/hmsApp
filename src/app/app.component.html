@@ -6,16 +6,18 @@
       </ion-toolbar>
     </ion-header>
     <ion-content>
-      <ion-list>
-        <!-- <ion-item [routerLink]="['/','myprofile']">My Profile</ion-item>
-        <ion-item [routerLink]="['/']">Home</ion-item>
-        <ion-item [routerLink]="['/','product']">Smart Basket</ion-item> -->
-        <ion-item href="/myprofile">My Profile</ion-item>
-        <ion-item href="/">Home</ion-item>
-        <ion-item href="/product">Smart Basket</ion-item>
-        <ion-item href="/myorders">My Orders</ion-item>
-        <ion-item>Wallet</ion-item>
-        <ion-item href='/login'>Logout</ion-item>
+      <ion-list lines="none">
+        <ion-item (click)="home()"><ion-icon name="home" class="ion-padding-end"></ion-icon>Home</ion-item>
+        <ion-item (click)="profile()"><ion-icon name="person" class="ion-padding-end"></ion-icon>Your Profile</ion-item>
+        <ion-item (click)="orders()"><ion-icon name="list" class="ion-padding-end"></ion-icon>Your Orders</ion-item>
+        <ion-item-divider></ion-item-divider><br>
+        <ion-item (click)="cart()"><ion-icon name="cart" class="ion-padding-end"></ion-icon>Shop Now</ion-item>
+        <ion-item (click)="basket()"><ion-icon name="basket" class="ion-padding-end"></ion-icon>Smart Basket</ion-item>
+        <ion-item (click)="wallet()"><ion-icon name="wallet" class="ion-padding-end"></ion-icon>Wallet</ion-item>
+        <ion-item (click)="qrCode()"><ion-icon name="barcode" class="ion-padding-end"></ion-icon>QR Scanner</ion-item>
+        <ion-item-divider></ion-item-divider><br>
+        <ion-item (click)="contactUs()"><ion-icon name="help-buoy" class="ion-padding-end"></ion-icon>Contact Us</ion-item>
+        <ion-item (click)="logout()"><ion-icon name="exit" class="ion-padding-end"></ion-icon>Logout</ion-item>
       </ion-list>
     </ion-content>
   </ion-menu>

@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="onCancel()">
+        <ion-icon name="arrow-back" class="end-icon-btn ion-padding-end"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Payments</ion-title>
+    
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-label class="text-muted" class="ion-padding-bottom">{{items}} items. Pay &#8377;{{payment}}</ion-label>
+  <ion-list lines="none">
+    <ion-radio-group (ionChange)="radioGrpEvent($event)">
+      <ion-list-header>
+        <ion-label>All Payment Modes</ion-label>
+      </ion-list-header>
+      <br> 
+      <ion-item>
+        <ion-icon name="wallet" class="ion-padding-end"></ion-icon>
+        <ion-label>Wallet</ion-label>
+        <ion-radio slot="end" value="wallet"></ion-radio>
+      </ion-item>
+      <br><br>
+      <ion-item>
+        <ion-icon name="cash" class="ion-padding-end"></ion-icon>
+        <ion-label>Pay on Delivery</ion-label>
+        <ion-radio slot="end" value="cod"></ion-radio>
+      </ion-item>
+    </ion-radio-group>
+  </ion-list>
+
+</ion-content>
+<ion-footer *ngIf="paymentMode === ''" style="padding: 5px;">
+  <ion-button expand="full" fill="outline" (click)="onCancel()">Cancel</ion-button>
+</ion-footer>
+<ion-footer *ngIf="paymentMode === 'wallet'" style="padding: 5px;">
+  <ion-button expand="full" color="danger" (click)="onWallet()">Pay Now</ion-button>
+</ion-footer>
+<ion-footer *ngIf="paymentMode === 'cod'" style="padding: 5px;">
+  <ion-button expand="full" color="danger" (click)="onCOD()">Pay on Delivery</ion-button>
+</ion-footer>

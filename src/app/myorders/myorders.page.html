@@ -29,13 +29,21 @@
           <span class="ion-float-left">{{ord.timestamp.toDate() | date:'MMMM dd, yyyy'}}</span>
           <span class="ion-float-right">{{ord.timestamp.toDate() | date:'hh:mm a'}}</span>
         </ion-card-title><br><br>
-        <ion-card-subtitle *ngIf="ord.status === 'placed'">
-          <ion-icon name="checkmark" color="success"></ion-icon> 
-          Order {{ord.status}} 
+        <ion-card-subtitle *ngIf="ord.status === 'placed'" color="primary">
+          <ion-icon name="cart"></ion-icon> 
+          Order Pending 
         </ion-card-subtitle>
-        <ion-card-subtitle *ngIf="ord.status === 'cancelled'">
-          <ion-icon name="close" color="danger"></ion-icon> 
-          Order {{ord.status}} 
+        <ion-card-subtitle *ngIf="ord.status === 'cancelled'" color="danger">
+          <ion-icon name="remove-circle-outline"></ion-icon> 
+          Order Cancelled 
+        </ion-card-subtitle>
+        <ion-card-subtitle *ngIf="ord.status === 'failed'" color="danger">
+          <ion-icon name="close-circle-outline"></ion-icon> 
+          Delivery Failed 
+        </ion-card-subtitle>
+        <ion-card-subtitle *ngIf="ord.status === 'delivered'" color="success"> 
+          <ion-icon name="done-all"></ion-icon> 
+          Order Delivered
         </ion-card-subtitle>
       </ion-card-header>
       <ion-card-content>

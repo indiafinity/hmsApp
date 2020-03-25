@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import * as firebase from 'firebase/app';
-import 'firebase/firestore';
 import { Storage } from '@ionic/storage';
 import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
-import { NavController } from '@ionic/angular';
+import { NavController, LoadingController } from '@ionic/angular';
+
+import * as firebase from 'firebase/app';
+import 'firebase/firestore';
 
 @Component({
   selector: 'app-myprofile',
@@ -13,7 +14,8 @@ import { NavController } from '@ionic/angular';
 export class MyprofilePage implements OnInit {
 
   constructor(
-    public storage: Storage,
+    private storage: Storage,
+    private loadingCtrl: LoadingController,
     public router: Router,
     private navCtrl: NavController,
     private route: ActivatedRoute) {
@@ -49,11 +51,14 @@ export class MyprofilePage implements OnInit {
       }
     }
     this.navCtrl.navigateForward('/edit-profile', navigationExtras);
-    // this.router.navigate(['/edit-profile'], navigationExtras);
   }
   ngOnInit() {
   }
-  ionViewWillEnter() {
+  async ionViewWillEnter() {
+    (await this.loadingCtrl.create({
+      message: 'Please Wait',
+      duration: 5000
+    })).present();
     if (this.user.uid.length == 0) {
       console.log('Calling values from firebase.')
       this.callUser();
@@ -93,6 +98,7 @@ export class MyprofilePage implements OnInit {
     } else {
       console.log('Please Login..');
     }
+    this.loadingCtrl.dismiss();
 
   }
 
@@ -102,8 +108,7 @@ export class MyprofilePage implements OnInit {
         addedCProducts: this.addedProducts
       }
     }
-    // this.router.navigateByUrl('/cart');
-    this.navCtrl.navigateForward('/cart', navigationExtras);
+    this.navCtrl.navigateForward('/product', navigationExtras);
   }
 
 }

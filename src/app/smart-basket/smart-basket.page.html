@@ -1,0 +1,68 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button id="content"></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">Smart Basket</ion-title>
+  <ion-buttons slot="end">
+    <ion-icon name="cart" class="end-icon-btn ion-padding-end"></ion-icon>
+  </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-searchbar showcancelbutton='focus'></ion-searchbar>
+
+<ion-content class="ion-padding-bottom">
+  <div *ngIf="unique.length == 0">
+    <ion-label ><h5 class="text-muted">No Products to Show</h5></ion-label>
+  </div>
+  <div *ngIf="unique.length > 1" class="padding-bottom">
+    <ion-label><h3 class="text-muted">Recommended products</h3></ion-label>
+    <!-- <ion-label ><h5 class="text-muted">Total {{unique.length}} products</h5></ion-label> -->
+    <ion-list *ngFor="let prod of unique" class="prodList">
+      <ion-item>
+        <ion-thumbnail slot="start">
+          <img src="{{prod.image}}">
+        </ion-thumbnail>
+        <ion-label class="ion-text-wrap">{{ prod.name }} <b>&#8377; {{prod.sp}}</b></ion-label>
+        <ion-grid>
+          <ion-row>
+          <ion-col>
+            <ion-button id="minusBtn" color="dark" (click)="onMinus(prod.uid)">{{minus}}</ion-button>
+          </ion-col>
+          <ion-col id="qtyShow" offset="1.25" style="margin-top: 9px;">{{prod.qty}}</ion-col>
+          <ion-col>
+            <ion-button id="plusBtn" color="dark" (click)="onPlus(prod.uid)">{{plus}}</ion-button>
+          </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+    </ion-list>
+    
+    <ion-label><h3 class="text-muted">Buy Again</h3></ion-label>
+    <ion-list *ngFor="let prod of previous" class="prodList">
+      <ion-item>
+        <ion-thumbnail slot="start">
+          <img src="{{prod.image}}">
+        </ion-thumbnail>
+        <ion-label class="ion-text-wrap">{{ prod.name }} <b>&#8377; {{prod.sp}}</b></ion-label>
+        <ion-grid>
+          <ion-row>
+          <ion-col>
+            <ion-button id="minusBtn" color="dark" (click)="onMinus(prod.uid)">{{minus}}</ion-button>
+          </ion-col>
+          <ion-col id="qtyShow" offset="1.25" style="margin-top: 9px;">{{prod.qty}}</ion-col>
+          <ion-col>
+            <ion-button id="plusBtn" color="dark" (click)="onPlus(prod.uid)">{{plus}}</ion-button>
+          </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+    </ion-list>
+  </div>
+</ion-content>
+<ion-footer style="padding: 5px;">
+  <ion-button expand="full" (click)="addToCart()" color="danger">
+    Pay Now
+    <ion-icon name="cart" slot="start"></ion-icon>
+  </ion-button>
+</ion-footer>

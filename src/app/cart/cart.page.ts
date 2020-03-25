@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
-import { NavController, AlertController } from '@ionic/angular';
+import { NavController, AlertController, LoadingController, ModalController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 
 import * as firebase from 'firebase/app';
 import 'firebase/firestore';
+import { PaymentPage } from '../payment/payment.page';
 
 @Component({
   selector: 'app-cart',
@@ -18,7 +19,9 @@ export class CartPage implements OnInit {
     private navCtrl: NavController,
     private route: ActivatedRoute,
     private alertCtrl: AlertController,
-    private storage: Storage) {
+    private loadingCtrl: LoadingController,
+    private storage: Storage,
+    public modalCtrl: ModalController) {
 
       this.route.queryParams.subscribe(params => {
         this.addedCproducts = [];
@@ -33,6 +36,7 @@ export class CartPage implements OnInit {
     addedSproducts = [];
     checkout = [];
     cartTotal = 0;
+    dataReturned: any;
 
     currentUser = {
       username: '',
@@ -51,7 +55,8 @@ export class CartPage implements OnInit {
       city: '',
       state: '',
       pincode: '',
-      ord_uid: ''
+      ord_uid: '',
+      wallet: 0
     };
 
     ngOnInit() {}
@@ -61,6 +66,44 @@ export class CartPage implements OnInit {
       console.log(user);
       this.currentUser = user;
     });
+  }
+
+  async openModal() {
+    const modal = await this.modalCtrl.create({
+      component: PaymentPage,
+      componentProps: {
+        amount: this.cartTotal,
+        items: this.addedCproducts.length,
+        wallet: this.user1.wallet
+      }
+    });
+
+    modal.onDidDismiss().then(async data => {
+      if (data !== 'null') {
+        this.dataReturned = data;
+        console.log('Payment Mode: ', this.dataReturned.data);
+        const loader = await this.loadingCtrl.create({
+          message: 'Please Wait',
+          duration: 2500
+        });
+        await loader.present();
+        await this.PayNowFunction(this.dataReturned.data);
+        const alertM = await this.alertCtrl.create({
+          message: '<span class="text-center"><img src="../../../assets/green-tick-48.png"><h4>Order Placed!!</h4><span>',
+        });
+        loader.dismiss();
+        await alertM.present();
+    
+        setTimeout(() => {
+          alertM.dismiss();
+          this.navCtrl.navigateForward('/home1');
+        }, 2000);
+      } else {
+        alert('Firebase Add failed..');
+      }
+    });
+
+    return await modal.present();
   }
 
   // loadDummyData() {
@@ -190,9 +233,13 @@ export class CartPage implements OnInit {
   // }
 
   async PayNow() {
+    (await this.loadingCtrl.create({
+      message: 'Please Wait..',
+      duration: 3000
+    })).present();
     
     await firebase.firestore().collection('users').where('uid', '==', this.currentUser.userId).get()
-    .then((query) => {
+    .then(async query => {
       this.user1 = {
         uid: query.docs[0].id,
         name: query.docs[0].data().name,
@@ -204,11 +251,13 @@ export class CartPage implements OnInit {
         city: query.docs[0].data().city,
         state: query.docs[0].data().state,
         pincode: query.docs[0].data().pincode,
-        ord_uid: ''
+        ord_uid: '',
+        wallet: query.docs[0].data().wallet
       };
       if (this.user1.phone.length != 0 && this.user1.flat.length != 0 && this.user1.building.length != 0) {
         if (this.user1.city.length != 0 &&  this.user1.area.length != 0  && this.user1.pincode.length !=0) {
           console.log('all values available');
+          await this.openModal();
           // this.PayNowFunction();
         } else {
           console.log('Please fill all details....');
@@ -249,7 +298,8 @@ export class CartPage implements OnInit {
     (await alertM).present();
   }
   
-  async PayNowFunction() {
+  async PayNowFunction(modes: any) {
+    
     await firebase.firestore().collection('customer-orders').add({
       customer_uid: this.user1.uid,
       pincode: this.user1.pincode,
@@ -257,47 +307,36 @@ export class CartPage implements OnInit {
       customer_email: this.currentUser.email,
       total_items: this.addedCproducts.length,
       timestamp: firebase.firestore.Timestamp.now(),
-      status: 'Placed'
+      status: 'Placed',
+      building: this.user1.building,
+      flat: this.user1.flat,
+      mode: modes
     }).then((result) => {
       this.user1.ord_uid = result.id;
       firebase.firestore().collection('customer-orders').doc(result.id).set({
         uid: this.user1.ord_uid
-      }, {merge: true});
-      }).catch(error => {
-        console.log(error.message);
+      }, {merge: true}).then(() => {
+        this.loadingCtrl.dismiss();
       });
+    }).catch(error => {
+      console.log(error.message);
+    });
   
-      this.addedCproducts.forEach(async prods => {
-        // this.checkout.push({
-        //   prod_uid: prods.uid,
-        //   prod_name: prods.name,
-        //   sp: prods.sp,
-        //   qty: prods.qty
-        // });
-        await firebase.firestore().collection('customer-orders').doc(this.user1.ord_uid).collection('items').add({
-          uid: '',
-          prod_uid: prods.uid,
-          prod_name: prods.name,
-          qty: prods.qty,
-          price: prods.sp,
-          total: (prods.sp * prods.qty)
-        }).then((itm) => {
-          firebase.firestore().collection('customer-orders').doc(this.user1.ord_uid)
-          .collection('items').doc(itm.id).update({
-            uid: itm.id
-          });
+    this.addedCproducts.forEach(async prods => {
+      await firebase.firestore().collection('customer-orders').doc(this.user1.ord_uid).collection('items').add({
+        uid: '',
+        prod_uid: prods.uid,
+        prod_name: prods.name,
+        qty: prods.qty,
+        price: prods.sp,
+        total: (prods.sp * prods.qty)
+      }).then((itm) => {
+        firebase.firestore().collection('customer-orders').doc(this.user1.ord_uid)
+        .collection('items').doc(itm.id).update({
+          uid: itm.id
         });
       });
-
-
-    const alertM = await this.alertCtrl.create({
-      message: '<span class="text-center"><img src="../../../assets/green-tick-48.png"><h4>Order Placed!!</h4><span>',
     });
-    await alertM.present();
-    setTimeout(() => {
-      alertM.dismiss();
-      this.navCtrl.navigateForward('/home1');
-    }, 2000);
   }
 
   calculate() {

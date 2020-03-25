@@ -16,6 +16,9 @@ const routes: Routes = [
   { path: 'contact-us', loadChildren: './contact-us/contact-us.module#ContactUsPageModule' },
   { path: 'myorders', loadChildren: './myorders/myorders.module#MyordersPageModule' },
   { path: 'showorder', loadChildren: './showorder/showorder.module#ShoworderPageModule' },
+  { path: 'smart-basket', loadChildren: './smart-basket/smart-basket.module#SmartBasketPageModule' },
+  { path: 'wallet', loadChildren: './wallet/wallet.module#WalletPageModule' },
+  { path: 'payment', loadChildren: './payment/payment.module#PaymentPageModule' },
 
 
 ];

@@ -11,10 +11,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { ImageModalPageModule } from './image-modal/image-modal.module';
 import { IonicStorageModule } from '@ionic/storage';
 
-// import { firebase } from 'firebase';
 import * as firebase from 'firebase/app';
 
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
+import { PaymentPageModule } from './payment/payment.module';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyCJCweI34qs89iMubJO1rFh47lZaqY-lPw',
@@ -39,6 +39,7 @@ firebase.initializeApp(firebaseConfig);
     IonicStorageModule.forRoot(),
     AppRoutingModule,
     ImageModalPageModule,
+    PaymentPageModule
     ],
   providers: [
     StatusBar,

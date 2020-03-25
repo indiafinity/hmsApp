@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController } from '@ionic/angular';
+import { NavController, LoadingController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { NavigationExtras } from '@angular/router';
 
@@ -13,7 +13,7 @@ import 'firebase/firestore';
 })
 export class MyordersPage implements OnInit {
 
-  constructor(private navCtrl: NavController, private storage: Storage) { }
+  constructor(private navCtrl: NavController, private storage: Storage, private loadingCtrl: LoadingController) { }
 
   currentUser = {
     username: '',
@@ -29,6 +29,10 @@ export class MyordersPage implements OnInit {
       this.currentUser = user;
       console.log(this.currentUser);
     });
+    (await this.loadingCtrl.create({
+      message: 'Please Wait',
+      duration: 5000
+    })).present();
     this.ordersFirebase();
   }
 
